@@ -4,6 +4,7 @@ import SwiftUI
 struct GameSessionApp: App {
     var body: some Scene {
         WindowGroup {
+            SessionView()
         }
     }
 }
