@@ -7,7 +7,8 @@ extension InfoPlist {
             "CFBundleVersion": "1",
             "UIMainStoryboardFile": "",
             "UILaunchStoryboardName": "LaunchScreen",
-            "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait"]
+            "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait"],
+            "ITSAppUsesNonExemptEncryption": "NO"
         ]
     )
 }
