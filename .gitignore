@@ -79,3 +79,12 @@ Package.resolved
 # Tuist
 Tuist/Dependencies/graph.json 
 Tuist/Dependencies/SwiftPackageManager 
+
+### Fastlane ###
+fastlane/README.md
+fastlane/report.xml
+fastlane/build
+
+### Configuration ###
+*.env
+!*.template.env
