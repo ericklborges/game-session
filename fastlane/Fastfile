@@ -1,6 +1,6 @@
 # -- Lanes -- 
 
-lane :testflight do
+lane :beta do
   load_dotenv('Secrets/.env')
   
   build_app(
@@ -8,16 +8,8 @@ lane :testflight do
     output_directory: "fastlane/build"
   )
 
-  api_key = app_store_connect_api_key(
-    key_id: ENV["APPLE_KEY_ID"],
-    issuer_id: ENV["APPLE_ISSUER_ID"],
-    key_content: ENV["APPLE_KEY_BASE_64"],
-    is_key_content_base64: true,
-    duration: 1200
-  )
-
   upload_to_testflight(
-    api_key: api_key,
+    api_key: generateAppstoreConnectApiKey(),
     ipa: 'fastlane/build/GameSession.ipa',
     skip_waiting_for_build_processing: true
   )
@@ -29,4 +21,15 @@ def load_dotenv(path)
   if File.file?(path)
     sh(path)
   end
+end
+
+
+def generateAppstoreConnectApiKey()
+  return app_store_connect_api_key(
+    key_id: ENV["APPLE_KEY_ID"],
+    issuer_id: ENV["APPLE_ISSUER_ID"],
+    key_content: ENV["APPLE_KEY_BASE_64"],
+    is_key_content_base64: true,
+    duration: 1200
+  )
 end
