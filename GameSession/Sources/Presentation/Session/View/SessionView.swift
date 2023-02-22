@@ -10,15 +10,22 @@ import SwiftUI
 
 struct SessionView: View {
     
-    @State var counter = 0
+    @ObservedObject var viewModel = SessionViewModel()
     
     var body: some View {
         VStack(spacing: 16.0) {
-            CounterView(text: String(counter))
-                .layoutPriority(1)
+            CounterView(text: viewModel.counterText)
+            .layoutPriority(1)
+
             Spacer()
-            CounterButton(function: .add) { counter += 1 }
-            CounterButton(function: .subtract) { counter -= 1 }
+
+            CounterButton(function: .add) {
+                viewModel.add()
+            }
+
+            CounterButton(function: .subtract) {
+                viewModel.subtract()
+            }
         }
         .padding()
         .background(Color(asset: GameSessionAsset.Colors.textColor))

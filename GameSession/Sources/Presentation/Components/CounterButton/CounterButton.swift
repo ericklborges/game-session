@@ -57,7 +57,8 @@ fileprivate struct CounterButtonStyle: ButtonStyle {
         let imageSet: ImageSet = function == .add ? .up : .down
         let backgroundImage = configuration.isPressed ? imageSet.pressed : imageSet.normal
         let arrowImage = imageSet.arrow
-         
+        let yScale = configuration.isPressed ? 0.95 : 1
+
         if configuration.isPressed {
             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         } else {
@@ -74,8 +75,7 @@ fileprivate struct CounterButtonStyle: ButtonStyle {
                 .padding([.top, .bottom], 44)
         }
         .frame(maxHeight: 200)
-        .scaleEffect(x: 1, y: configuration.isPressed ? 0.95 : 1, anchor: .bottom)
-
+        .scaleEffect(x: 1, y: yScale, anchor: .bottom)
     }
 }
 
