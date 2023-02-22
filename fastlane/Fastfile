@@ -1,7 +1,7 @@
 # -- Lanes -- 
 
 lane :beta do
-  load_dotenv('Secrets/.env')
+  load_dotenv('.env')
   
   build_app(
     scheme: "GameSession",
