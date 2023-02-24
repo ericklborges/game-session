@@ -8,7 +8,8 @@ let project = Project.main(
         .app(
             name: "GameSession",
             organization: "bcl",
-            platform: .iOS
+            platform: .iOS,
+            coreDataModels: [.gameSession]
         )
     ]
 )

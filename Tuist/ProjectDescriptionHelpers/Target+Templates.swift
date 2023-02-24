@@ -4,7 +4,8 @@ extension Target {
     public static func app(
         name: String,
         organization: String,
-        platform: Platform
+        platform: Platform,
+        coreDataModels: [CoreDataModel] = []
     ) -> Target {
         .init(
             name: name,
@@ -14,7 +15,8 @@ extension Target {
             deploymentTarget: .iOS(targetVersion: "15.7", devices: .iphone),
             infoPlist: .basePlist,
             sources: ["Sources/**"],
-            resources: ["Resources/**"]
+            resources: ["Resources/**"],
+            coreDataModels: coreDataModels
         )
     }
 }
