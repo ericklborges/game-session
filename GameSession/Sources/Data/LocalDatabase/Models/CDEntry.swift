@@ -24,4 +24,11 @@ public class CDEntry: NSManagedObject {
         id = UUID()
         timestamp = Date()
     }
+
+    convenience init(entry: Entry, context: NSManagedObjectContext!) {
+        self.init(entity: Self.entity(), insertInto: context)
+        self.id = entry.id
+        self.timestamp = entry.timestamp
+        self.value = entry.value
+    }
 }
