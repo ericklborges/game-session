@@ -15,7 +15,7 @@ struct SessionView: View {
     var body: some View {
         VStack(spacing: 16.0) {
             CounterView(text: viewModel.counterText)
-            .layoutPriority(1)
+                .layoutPriority(1)
 
             Spacer()
 
