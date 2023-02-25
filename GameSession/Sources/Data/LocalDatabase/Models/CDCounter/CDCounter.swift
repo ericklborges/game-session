@@ -1,5 +1,5 @@
 //
-//  Counter+CoreDataClass.swift
+//  CDCounter.swift
 //  
 //
 //  Created by Erick Lozano Borges on 22/02/23.
@@ -13,7 +13,7 @@ import CoreData
 public class CDCounter: NSManagedObject {
     @NSManaged public var id: UUID
     @NSManaged public var title: String
-    @NSManaged public var sessions: Set<CDSession>
+    @NSManaged public var sessions: Set<CDGameSession>
 
     @nonobjc public class func fetchRequest(id: UUID? = nil) -> NSFetchRequest<CDCounter> {
         let fetchRequest = NSFetchRequest<CDCounter>(entityName: "Counter")
@@ -34,6 +34,6 @@ public class CDCounter: NSManagedObject {
         self.init(entity: Self.entity(), insertInto: context)
         self.id = counter.id
         self.title = counter.title
-        self.sessions = Set(counter.sessions.map { CDSession(session: $0, context: context) })
+        self.sessions = Set(counter.sessions.map { CDGameSession(session: $0, context: context) })
     }
 }

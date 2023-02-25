@@ -32,14 +32,14 @@ final class CDCounterDAO {
     }
 
     @discardableResult
-    func update(id: UUID, adding session: Session) -> Counter? {
+    func update(id: UUID, adding session: GameSession) -> Counter? {
         let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest(id: id)
 
         do {
             let results = try context.fetch(fetchRequest)
 
             guard let cdCounter = results.first else { return nil }
-            cdCounter.sessions.insert(CDSession(session: session, context: context))
+            cdCounter.sessions.insert(CDGameSession(session: session, context: context))
 
             try context.save()
             return Counter(cdCounter: cdCounter)

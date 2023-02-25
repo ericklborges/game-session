@@ -1,5 +1,5 @@
 //
-//  Session.swift
+//  GameSession.swift
 //  GameSession
 //
 //  Created by Erick Lozano Borges on 24/02/23.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-struct Session {
+struct GameSession {
     let id: UUID
     let timestamp: Date
     var entries: [Entry]
@@ -20,7 +20,7 @@ struct Session {
         self.entries = [entry]
     }
 
-    init(cdSession: CDSession) {
+    init(cdSession: CDGameSession) {
         self.id = cdSession.id
         self.timestamp = cdSession.timestamp
         self.entries = cdSession.entries.map(Entry.init)

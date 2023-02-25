@@ -12,7 +12,7 @@ import CoreData
 struct Counter {
     let id: UUID
     let title: String
-    var sessions: [Session]
+    var sessions: [GameSession]
 
     init(_ title: String) {
         self.id = UUID()
@@ -23,6 +23,6 @@ struct Counter {
     init(cdCounter: CDCounter) {
         self.id = cdCounter.id
         self.title = cdCounter.title
-        self.sessions = cdCounter.sessions.map(Session.init)
+        self.sessions = cdCounter.sessions.map(GameSession.init)
     }
 }

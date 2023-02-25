@@ -63,7 +63,7 @@ final class SessionViewModel: ObservableObject {
         if let currentSession = gameCounter.sessions.last {
             sessionDAO.update(id: currentSession.id, adding: newEntry)
         } else {
-            let newSession = Session(entry: newEntry)
+            let newSession = GameSession(entry: newEntry)
             counterDAO.update(id: gameCounter.id, adding: newSession)
         }
 

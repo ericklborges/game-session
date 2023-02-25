@@ -18,8 +18,8 @@ final class CDSessionDAO {
     }
 
     @discardableResult
-    func create(entry: Entry? = nil) -> Session? {
-        let cdSession = CDSession(context: context)
+    func create(entry: Entry? = nil) -> GameSession? {
+        let cdSession = CDGameSession(context: context)
 
         if let entry {
             cdSession.entries = [CDEntry(entry: entry, context: context)]
@@ -29,7 +29,7 @@ final class CDSessionDAO {
 
         do {
             try context.save()
-            return Session(cdSession: cdSession)
+            return GameSession(cdSession: cdSession)
         } catch let error {
             print(error)
             return nil
@@ -37,8 +37,8 @@ final class CDSessionDAO {
     }
 
     @discardableResult
-    func update(id: UUID, adding entry: Entry) -> Session? {
-        let fetchRequest: NSFetchRequest<CDSession> = CDSession.fetchRequest(id: id)
+    func update(id: UUID, adding entry: Entry) -> GameSession? {
+        let fetchRequest: NSFetchRequest<CDGameSession> = CDGameSession.fetchRequest(id: id)
 
         do {
             let results = try context.fetch(fetchRequest)
@@ -47,7 +47,7 @@ final class CDSessionDAO {
             cdSession.entries.insert(CDEntry(entry: entry, context: context))
 
             try context.save()
-            return Session(cdSession: cdSession)
+            return GameSession(cdSession: cdSession)
         } catch let error {
             print(error)
             return nil

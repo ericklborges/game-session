@@ -1,5 +1,5 @@
 //
-//  Entry+CoreDataClass.swift
+//  CDEntry.swift
 //  
 //
 //  Created by Erick Lozano Borges on 22/02/23.
