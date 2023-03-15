@@ -12,8 +12,8 @@ struct GameSessionListView: View {
 
     @ObservedObject var viewModel: GameSessionListViewModel
 
-    init(_ viewModel: GameSessionListViewModel) {
-        self.viewModel = viewModel
+    init(_ gameSessions: [GameSession]) {
+        self.viewModel = GameSessionListViewModel(gameSessions)
     }
 
     var body: some View {
@@ -26,10 +26,10 @@ struct GameSessionListView: View {
 struct EntriesListView_Preview: PreviewProvider {
 
     static var previews: some View {
-        GameSessionListView(viewModelStub)
+        GameSessionListView(gameSessions)
     }
 
-    static var viewModelStub = GameSessionListViewModel([
+    static var gameSessions = [
         GameSession(
             timestamp: Date(),
             entries: [
@@ -51,5 +51,5 @@ struct EntriesListView_Preview: PreviewProvider {
                 Entry(value: -3, timestamp: Date(timeIntervalSinceNow: -2)),
             ]
         ),
-    ])
+    ]
 }

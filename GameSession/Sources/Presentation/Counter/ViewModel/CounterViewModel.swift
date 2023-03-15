@@ -14,8 +14,8 @@ final class CounterViewModel: ObservableObject {
     @Published var counterText: String = "0"
 
     // MARK: - Properties
-    var entries: [[Entry]] {
-        gameCounter.sessions.map(\.entries)
+    var gameSessions: [GameSession] {
+        gameCounter.sessions
     }
 
     private var counter: Int32 = 0 {

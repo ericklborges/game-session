@@ -10,27 +10,35 @@ import SwiftUI
 
 struct CounterView: View {
 
-    // TODO: @StateObject vs ObservedObject
     @StateObject var viewModel = CounterViewModel()
     
     var body: some View {
-        VStack(spacing: 16.0) {
-            CounterDisplayView(text: viewModel.counterText)
-                .layoutPriority(1)
+        NavigationView {
+            VStack(spacing: 16.0) {
+                CounterDisplayView(text: viewModel.counterText)
+                    .layoutPriority(1)
 
-            Spacer()
+                Spacer()
 
-            CounterButton(function: .add) {
-                viewModel.add()
+                CounterButton(function: .add) {
+                    viewModel.add()
+                }
+
+                CounterButton(function: .subtract) {
+                    viewModel.subtract()
+                }
+
+                NavigationLink(
+                    destination: { GameSessionListView(viewModel.gameSessions) },
+                    label: { Text("History") }
+                )
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.roundedRectangle)
+
             }
-
-            CounterButton(function: .subtract) {
-                viewModel.subtract()
-            }
-
+            .padding()
+            .background(Color(asset: GameSessionAsset.Colors.textColor))
         }
-        .padding()
-        .background(Color(asset: GameSessionAsset.Colors.textColor))
     }
 
 }
