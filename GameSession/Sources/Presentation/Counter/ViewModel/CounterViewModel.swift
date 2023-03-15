@@ -1,5 +1,5 @@
 //
-//  SessionViewModel.swift
+//  CounterViewModel.swift
 //  GameSession
 //
 //  Created by Erick Lozano Borges on 22/02/23.
@@ -8,12 +8,16 @@
 
 import Combine
 
-final class SessionViewModel: ObservableObject {
+final class CounterViewModel: ObservableObject {
 
     // MARK: - Published
     @Published var counterText: String = "0"
 
     // MARK: - Properties
+    var entries: [[Entry]] {
+        gameCounter.sessions.map(\.entries)
+    }
+
     private var counter: Int32 = 0 {
         didSet { counterText = String(counter) }
     }

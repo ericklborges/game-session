@@ -1,5 +1,5 @@
 //
-//  SessionView.swift
+//  CounterView.swift
 //  GameSession
 //
 //  Created by Erick Lozano Borges on 31/01/23.
@@ -8,13 +8,14 @@
 
 import SwiftUI
 
-struct SessionView: View {
-    
-    @ObservedObject var viewModel = SessionViewModel()
+struct CounterView: View {
+
+    // TODO: @StateObject vs ObservedObject
+    @StateObject var viewModel = CounterViewModel()
     
     var body: some View {
         VStack(spacing: 16.0) {
-            CounterView(text: viewModel.counterText)
+            CounterDisplayView(text: viewModel.counterText)
                 .layoutPriority(1)
 
             Spacer()
@@ -26,15 +27,16 @@ struct SessionView: View {
             CounterButton(function: .subtract) {
                 viewModel.subtract()
             }
+
         }
         .padding()
         .background(Color(asset: GameSessionAsset.Colors.textColor))
     }
-    
+
 }
 
 struct SessionView_Previews: PreviewProvider {
     static var previews: some View {
-        SessionView()
+        CounterView()
     }
 }

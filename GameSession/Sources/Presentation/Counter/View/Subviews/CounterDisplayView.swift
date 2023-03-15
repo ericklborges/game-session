@@ -1,5 +1,5 @@
 //
-//  CounterView.swift
+//  CounterDisplayView.swift
 //  GameSession
 //
 //  Created by Erick Lozano Borges on 31/01/23.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CounterView: View {
+struct CounterDisplayView: View {
    
     private let textFont = GameSessionFontFamily.PixelSplitter.regular.font(size: 50)
     
@@ -31,7 +31,7 @@ struct CounterView: View {
 
 struct CounterView_Previews: PreviewProvider {
     static var previews: some View {
-        CounterView(text: "+1")
+        CounterDisplayView(text: "+1")
             .previewLayout(PreviewLayout.sizeThatFits)
             .padding()
     }
