@@ -9,14 +9,14 @@
 import Foundation
 import CoreData
 
-struct Entry {
+struct Entry: Identifiable {
     let id: UUID
     let timestamp: Date
     let value: Int32
 
-    init(value: Int32) {
+    init(value: Int32, timestamp: Date = Date()) {
         self.id = UUID()
-        self.timestamp = Date()
+        self.timestamp = timestamp
         self.value = value
     }
 

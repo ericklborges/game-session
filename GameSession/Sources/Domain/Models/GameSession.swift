@@ -15,9 +15,13 @@ struct GameSession {
     var entries: [Entry]
 
     init(entry: Entry) {
+        self.init(entries: [entry])
+    }
+
+    init(timestamp: Date = Date(), entries: [Entry]) {
         self.id = UUID()
-        self.timestamp = Date()
-        self.entries = [entry]
+        self.timestamp = timestamp
+        self.entries = entries
     }
 
     init(cdSession: CDGameSession) {
