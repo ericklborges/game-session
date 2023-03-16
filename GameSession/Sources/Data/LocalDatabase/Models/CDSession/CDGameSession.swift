@@ -13,6 +13,7 @@ import CoreData
 public class CDGameSession: NSManagedObject {
     @NSManaged public var id: UUID
     @NSManaged public var timestamp: Date
+    // TODO: How to work with ordered collection?
     @NSManaged public var entries: Set<CDEntry>
 
     @nonobjc public class func fetchRequest(id: UUID? = nil) -> NSFetchRequest<CDGameSession> {

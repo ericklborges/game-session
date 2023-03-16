@@ -7,6 +7,7 @@
 //
 
 import Combine
+import Foundation
 
 final class CounterViewModel: ObservableObject {
 
@@ -15,7 +16,7 @@ final class CounterViewModel: ObservableObject {
 
     // MARK: - Properties
     var gameSessions: [GameSession] {
-        gameCounter.sessions
+        gameCounter.sessions.sorted(by: { $1.timestamp < $0.timestamp })
     }
 
     private var counter: Int32 = 0 {
@@ -35,8 +36,7 @@ final class CounterViewModel: ObservableObject {
 
     private func setupGameCounter() {
         gameCounter = getCounter()
-        counter = gameCounter
-            .sessions
+        counter = gameSessions
             .map(\.entries)
             .reduce([], +)
             .map(\.value)
@@ -64,14 +64,27 @@ final class CounterViewModel: ObservableObject {
     func addEntryToSession(_ value: Int32) {
         let newEntry = Entry(value: value)
 
-        if let currentSession = gameCounter.sessions.last {
-            sessionDAO.update(id: currentSession.id, adding: newEntry)
+        // TODO: Improve this logic
+        if let currentSession = gameSessions.first {
+            let currentSessionDate = currentSession.timestamp.formatted(date: .numeric, time: .omitted)
+            let today = Date().formatted(date: .numeric, time: .omitted)
+
+            if currentSessionDate != today {
+                addSessionToCounter(newEntry)
+            } else {
+                sessionDAO.update(id: currentSession.id, adding: newEntry)
+            }
+
         } else {
-            let newSession = GameSession(entry: newEntry)
-            counterDAO.update(id: gameCounter.id, adding: newSession)
+            addSessionToCounter(newEntry)
         }
 
         gameCounter = getCounter()
+    }
+
+    func addSessionToCounter(_ entry: Entry) {
+        let newSession = GameSession(entry: entry)
+        counterDAO.update(id: gameCounter.id, adding: newSession)
     }
 
     // MARK: - Actions

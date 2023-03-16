@@ -24,7 +24,7 @@ class GameSessionListViewModel: ObservableObject {
 
     private func setupSections() {
         sections = gameSessions
-            .sorted(by: { $1.timestamp > $0.timestamp })
+            .sorted(by: { $1.timestamp < $0.timestamp })
             .map { makeSection($0) }
     }
 
@@ -32,7 +32,9 @@ class GameSessionListViewModel: ObservableObject {
         .init(
             id: session.id.uuidString,
             title: session.timestamp.formatted(date: .numeric, time: .omitted),
-            rows: session.entries.map { makeRow($0) }
+            rows: session.entries
+                .sorted(by: { $1.timestamp < $0.timestamp })
+                .map { makeRow($0) }
         )
     }
 
