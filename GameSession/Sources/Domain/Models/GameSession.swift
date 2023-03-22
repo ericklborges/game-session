@@ -11,7 +11,7 @@ import CoreData
 
 struct GameSession {
     let id: UUID
-    let timestamp: Date
+    let timestamp: GSDate
     private var _entries: [Entry]
 
     var entries: [Entry] {
@@ -27,7 +27,7 @@ struct GameSession {
 
     init(
         id: UUID = UUID(),
-        timestamp: Date = Date(),
+        timestamp: GSDate = .today,
         entries: [Entry] = []
     ) {
         self.id = id
@@ -42,7 +42,7 @@ struct GameSession {
     init(cdSession: CDGameSession) {
         self.init(
             id: cdSession.id,
-            timestamp: cdSession.timestamp,
+            timestamp: GSDate(cdSession.timestamp),
             entries: cdSession.entries.map(Entry.init)
         )
     }

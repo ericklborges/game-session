@@ -31,24 +31,24 @@ struct EntriesListView_Preview: PreviewProvider {
 
     static var gameSessions = [
         GameSession(
-            timestamp: Date(),
+            timestamp: .today,
             entries: [
-                Entry(timestamp: Date(), value: 1),
-                Entry(timestamp: Date(), value: -1),
+                Entry(timestamp: .today, value: 1),
+                Entry(timestamp: .today, value: -1),
             ]
         ),
         GameSession(
-            timestamp: Date(timeIntervalSinceNow: 86400),
+            timestamp: .tomorrow,
             entries: [
-                Entry(timestamp: Date(timeIntervalSinceNow: 1), value: 2),
-                Entry(timestamp: Date(timeIntervalSinceNow: 2), value: -2),
+                Entry(timestamp: .today.add(1, to: .second), value: 2),
+                Entry(timestamp: .today.add(2, to: .second), value: -2),
             ]
         ),
         GameSession(
-            timestamp: Date(timeIntervalSinceNow: -86400),
+            timestamp: .yesterday,
             entries: [
-                Entry(timestamp: Date(timeIntervalSinceNow: -1), value: 3),
-                Entry(timestamp: Date(timeIntervalSinceNow: -2), value: -3),
+                Entry(timestamp: .today.add(-1, to: .second), value: 3),
+                Entry(timestamp: .today.add(-2, to: .second), value: -3),
             ]
         ),
     ]

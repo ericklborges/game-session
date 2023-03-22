@@ -11,12 +11,12 @@ import CoreData
 
 struct Entry: Identifiable {
     let id: UUID
-    let timestamp: Date
+    let timestamp: GSDate
     let value: Int32
 
     init(
         id: UUID = UUID(),
-        timestamp: Date = Date(),
+        timestamp: GSDate = .today,
         value: Int32
     ) {
         self.id = id
@@ -28,7 +28,7 @@ struct Entry: Identifiable {
     init(cdEntry: CDEntry) {
         self.init(
             id: cdEntry.id,
-            timestamp: cdEntry.timestamp,
+            timestamp: GSDate(cdEntry.timestamp),
             value: cdEntry.value
         )
     }

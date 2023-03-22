@@ -28,7 +28,7 @@ public class CDEntry: NSManagedObject {
     convenience init(entry: Entry, context: NSManagedObjectContext!) {
         self.init(entity: Self.entity(), insertInto: context)
         self.id = entry.id
-        self.timestamp = entry.timestamp
+        self.timestamp = entry.timestamp.rawValue
         self.value = entry.value
     }
 }

@@ -62,13 +62,13 @@ final class CounterViewModel: ObservableObject {
 
         // TODO: Improve this logic
         if let currentSession = gameSessions.first {
-            let currentSessionDate = currentSession.timestamp.formatted(date: .numeric, time: .omitted)
-            let today = Date().formatted(date: .numeric, time: .omitted)
+            let currentSessionDate = currentSession.timestamp
+            let wasCurrentSessionCreatedToday = currentSessionDate.isSameDayMonthYear(as: .today)
 
-            if currentSessionDate != today {
-                addSessionToCounter(newEntry)
-            } else {
+            if wasCurrentSessionCreatedToday {
                 sessionDAO.update(id: currentSession.id, adding: newEntry)
+            } else {
+                addSessionToCounter(newEntry)
             }
 
         } else {

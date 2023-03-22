@@ -35,7 +35,7 @@ public class CDGameSession: NSManagedObject {
     convenience init(session: GameSession, context: NSManagedObjectContext!) {
         self.init(entity: Self.entity(), insertInto: context)
         self.id = session.id
-        self.timestamp = session.timestamp
+        self.timestamp = session.timestamp.rawValue
         self.entries = Set(session.entries.map { CDEntry(entry: $0, context: context) })
     }
 }
