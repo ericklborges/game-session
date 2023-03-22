@@ -29,7 +29,7 @@ struct CounterView: View {
                 }
 
                 NavigationLink(
-                    destination: { GameSessionListView(viewModel.gameSessions) },
+                    destination: { EntriesListView(viewModel.gameSessions) },
                     label: { Text("History") }
                 )
                 .buttonStyle(.borderedProminent)

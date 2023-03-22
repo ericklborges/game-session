@@ -1,5 +1,5 @@
 //
-//  GameSessionListRow.swift
+//  EntriesListRow.swift
 //  GameSession
 //
 //  Created by Erick Lozano Borges on 06/03/23.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct GameSessionListRow: View {
+struct EntriesListRow: View {
 
     struct State: Identifiable {
         let id: String
@@ -34,13 +34,13 @@ struct GameSessionListRow: View {
 
 struct EntriesListRow_Preview: PreviewProvider {
 
-    static var state = GameSessionListRow.State(
+    static var state = EntriesListRow.State(
         id: "",
         amount: "1",
         time: Date().formatted()
     )
 
     static var previews: some View {
-        GameSessionListRow(state)
+        EntriesListRow(state)
     }
 }

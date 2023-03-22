@@ -1,5 +1,5 @@
 //
-//  GameSessionListViewModel.swift
+//  EntriesListViewModel.swift
 //  GameSession
 //
 //  Created by Erick Lozano Borges on 14/03/23.
@@ -8,10 +8,10 @@
 
 import Combine
 
-class GameSessionListViewModel: ObservableObject {
+class EntriesListViewModel: ObservableObject {
 
     // MARK: - Published
-    @Published var sections: [GameSessionListSection.State] = []
+    @Published var sections: [EntriesListSection.State] = []
 
     // MARK: - Properties
     private let gameSessions: [GameSession]
@@ -28,7 +28,7 @@ class GameSessionListViewModel: ObservableObject {
             .map { makeSection($0) }
     }
 
-    private func makeSection(_ session: GameSession) -> GameSessionListSection.State {
+    private func makeSection(_ session: GameSession) -> EntriesListSection.State {
         .init(
             id: session.id.uuidString,
             title: session.timestamp.formatted(date: .numeric, time: .omitted),
@@ -38,7 +38,7 @@ class GameSessionListViewModel: ObservableObject {
         )
     }
 
-    private func makeRow(_ entry: Entry) -> GameSessionListRow.State {
+    private func makeRow(_ entry: Entry) -> EntriesListRow.State {
         .init(
             id: entry.id.uuidString,
             amount: String(entry.value),

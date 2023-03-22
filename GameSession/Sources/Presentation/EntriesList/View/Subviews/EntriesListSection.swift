@@ -1,5 +1,5 @@
 //
-//  GameSessionListSection.swift
+//  EntriesListSection.swift
 //  GameSession
 //
 //  Created by Erick Lozano Borges on 06/03/23.
@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-struct GameSessionListSection: View {
+struct EntriesListSection: View {
 
     struct State: Identifiable {
         let id: String
         let title: String
-        let rows: [GameSessionListRow.State]
+        let rows: [EntriesListRow.State]
     }
 
     let state: State
@@ -24,7 +24,7 @@ struct GameSessionListSection: View {
 
     var body: some View {
         Section(state.title) {
-            ForEach(state.rows, content: GameSessionListRow.init)
+            ForEach(state.rows, content: EntriesListRow.init)
         }
     }
 
@@ -32,7 +32,7 @@ struct GameSessionListSection: View {
 
 struct EntriesListSection_Preview: PreviewProvider {
 
-    static var state = GameSessionListSection.State(
+    static var state = EntriesListSection.State(
         id: "",
         title: "06/03/2023",
         rows: [
@@ -44,8 +44,8 @@ struct EntriesListSection_Preview: PreviewProvider {
 
     static var previews: some View {
         List{
-            GameSessionListSection(state)
-            GameSessionListSection(state)
+            EntriesListSection(state)
+            EntriesListSection(state)
         }
     }
 }

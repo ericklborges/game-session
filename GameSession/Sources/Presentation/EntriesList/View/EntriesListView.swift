@@ -1,5 +1,5 @@
 //
-//  GameSessionListView.swift
+//  EntriesListView.swift
 //  GameSession
 //
 //  Created by Erick Lozano Borges on 06/03/23.
@@ -8,17 +8,17 @@
 
 import SwiftUI
 
-struct GameSessionListView: View {
+struct EntriesListView: View {
 
-    @ObservedObject var viewModel: GameSessionListViewModel
+    @ObservedObject var viewModel: EntriesListViewModel
 
     init(_ gameSessions: [GameSession]) {
-        self.viewModel = GameSessionListViewModel(gameSessions)
+        self.viewModel = EntriesListViewModel(gameSessions)
     }
 
     var body: some View {
         List {
-            ForEach(viewModel.sections, content: GameSessionListSection.init)
+            ForEach(viewModel.sections, content: EntriesListSection.init)
         }
     }
 }
@@ -26,7 +26,7 @@ struct GameSessionListView: View {
 struct EntriesListView_Preview: PreviewProvider {
 
     static var previews: some View {
-        GameSessionListView(gameSessions)
+        EntriesListView(gameSessions)
     }
 
     static var gameSessions = [
