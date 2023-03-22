@@ -12,19 +12,19 @@ import Foundation
 final class CounterViewModel: ObservableObject {
 
     // MARK: - Published
-    @Published var counterText: String = "0"
+    @Published var entriesSumText: String = "0"
 
     // MARK: - Properties
-    var gameSessions: [GameSession] {
-        gameCounter.sessions.sorted(by: { $1.timestamp < $0.timestamp })
-    }
+    var gameSessions: [GameSession] { gameCounter.sessions }
 
-    private var counter: Int32 = 0 {
-        didSet { counterText = String(counter) }
+    private var entriesSum: Int32 = 0 {
+        didSet { entriesSumText = String(entriesSum) }
     }
 
     private let counterStep: Int32 = 1
-    private var gameCounter = Counter("First Counter")
+    private var gameCounter = Counter(title: "First Counter")
+
+    // MARK: DAOs
     private let counterDAO = CDCounterDAO(CoreDataStore.shared.context)
     private let sessionDAO = CDSessionDAO(CoreDataStore.shared.context)
 
@@ -36,11 +36,7 @@ final class CounterViewModel: ObservableObject {
 
     private func setupGameCounter() {
         gameCounter = getCounter()
-        counter = gameSessions
-            .map(\.entries)
-            .reduce([], +)
-            .map(\.value)
-            .reduce(0, +)
+        entriesSum = gameCounter.allSessionsEntriesSum
     }
 
     // MARK: - Local Storage
@@ -90,12 +86,12 @@ final class CounterViewModel: ObservableObject {
     // MARK: - Actions
 
     func add() {
-        counter += counterStep
+        entriesSum += counterStep
         addEntryToSession(counterStep)
     }
 
     func subtract() {
-        counter -= counterStep
+        entriesSum -= counterStep
         addEntryToSession(-counterStep)
     }
 }

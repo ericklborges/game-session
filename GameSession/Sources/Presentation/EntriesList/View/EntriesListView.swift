@@ -33,22 +33,22 @@ struct EntriesListView_Preview: PreviewProvider {
         GameSession(
             timestamp: Date(),
             entries: [
-                Entry(value: 1, timestamp: Date()),
-                Entry(value: -1, timestamp: Date()),
+                Entry(timestamp: Date(), value: 1),
+                Entry(timestamp: Date(), value: -1),
             ]
         ),
         GameSession(
             timestamp: Date(timeIntervalSinceNow: 86400),
             entries: [
-                Entry(value: 2, timestamp: Date(timeIntervalSinceNow: 1)),
-                Entry(value: -2, timestamp: Date(timeIntervalSinceNow: 2)),
+                Entry(timestamp: Date(timeIntervalSinceNow: 1), value: 2),
+                Entry(timestamp: Date(timeIntervalSinceNow: 2), value: -2),
             ]
         ),
         GameSession(
             timestamp: Date(timeIntervalSinceNow: -86400),
             entries: [
-                Entry(value: 3, timestamp: Date(timeIntervalSinceNow: -1)),
-                Entry(value: -3, timestamp: Date(timeIntervalSinceNow: -2)),
+                Entry(timestamp: Date(timeIntervalSinceNow: -1), value: 3),
+                Entry(timestamp: Date(timeIntervalSinceNow: -2), value: -3),
             ]
         ),
     ]

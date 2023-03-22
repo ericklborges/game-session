@@ -23,18 +23,14 @@ class EntriesListViewModel: ObservableObject {
     }
 
     private func setupSections() {
-        sections = gameSessions
-            .sorted(by: { $1.timestamp < $0.timestamp })
-            .map { makeSection($0) }
+        sections = gameSessions.map { makeSection($0) }
     }
 
     private func makeSection(_ session: GameSession) -> EntriesListSection.State {
         .init(
             id: session.id,
             title: session.timestamp.formatted(date: .numeric, time: .omitted),
-            rows: session.entries
-                .sorted(by: { $1.timestamp < $0.timestamp })
-                .map { makeRow($0) }
+            rows: session.entries.map { makeRow($0) }
         )
     }
 

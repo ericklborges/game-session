@@ -15,7 +15,7 @@ struct CounterView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 16.0) {
-                CounterDisplayView(text: viewModel.counterText)
+                CounterDisplayView(text: viewModel.entriesSumText)
                     .layoutPriority(1)
 
                 Spacer()

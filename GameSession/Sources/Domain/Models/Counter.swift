@@ -12,17 +12,34 @@ import CoreData
 struct Counter {
     let id: UUID
     let title: String
-    var sessions: [GameSession]
+    private var _sessions: [GameSession]
 
-    init(_ title: String) {
-        self.id = UUID()
+    var sessions: [GameSession] {
+        get { _sessions.sorted(by: \.timestamp, using: >) }
+        set { _sessions = newValue }
+    }
+
+    var allSessionsEntriesSum: Int32 {
+        sessions
+            .map(\.entriesSum)
+            .reduce(0, +)
+    }
+
+    init(
+        id: UUID = UUID(),
+        title: String,
+        sessions: [GameSession] = []
+    ) {
+        self.id = id
         self.title = title
-        self.sessions = []
+        self._sessions = sessions
     }
 
     init(cdCounter: CDCounter) {
-        self.id = cdCounter.id
-        self.title = cdCounter.title
-        self.sessions = cdCounter.sessions.map(GameSession.init)
+        self.init(
+            id: cdCounter.id,
+            title: cdCounter.title,
+            sessions: cdCounter.sessions.map(GameSession.init)
+        )
     }
 }

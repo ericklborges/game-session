@@ -14,15 +14,22 @@ struct Entry: Identifiable {
     let timestamp: Date
     let value: Int32
 
-    init(value: Int32, timestamp: Date = Date()) {
-        self.id = UUID()
+    init(
+        id: UUID = UUID(),
+        timestamp: Date = Date(),
+        value: Int32
+    ) {
+        self.id = id
         self.timestamp = timestamp
         self.value = value
     }
 
+
     init(cdEntry: CDEntry) {
-        self.id = cdEntry.id
-        self.timestamp = cdEntry.timestamp
-        self.value = cdEntry.value
+        self.init(
+            id: cdEntry.id,
+            timestamp: cdEntry.timestamp,
+            value: cdEntry.value
+        )
     }
 }
