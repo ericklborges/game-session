@@ -30,7 +30,7 @@ class EntriesListViewModel: ObservableObject {
 
     private func makeSection(_ session: GameSession) -> EntriesListSection.State {
         .init(
-            id: session.id.uuidString,
+            id: session.id,
             title: session.timestamp.formatted(date: .numeric, time: .omitted),
             rows: session.entries
                 .sorted(by: { $1.timestamp < $0.timestamp })
@@ -40,7 +40,7 @@ class EntriesListViewModel: ObservableObject {
 
     private func makeRow(_ entry: Entry) -> EntriesListRow.State {
         .init(
-            id: entry.id.uuidString,
+            id: entry.id,
             amount: String(entry.value),
             time: entry.timestamp.formatted(date: .omitted, time: .standard)
         )

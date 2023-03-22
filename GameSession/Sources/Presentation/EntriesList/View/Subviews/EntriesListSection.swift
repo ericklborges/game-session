@@ -11,7 +11,7 @@ import SwiftUI
 struct EntriesListSection: View {
 
     struct State: Identifiable {
-        let id: String
+        let id: UUID
         let title: String
         let rows: [EntriesListRow.State]
     }
@@ -33,12 +33,12 @@ struct EntriesListSection: View {
 struct EntriesListSection_Preview: PreviewProvider {
 
     static var state = EntriesListSection.State(
-        id: "",
+        id: UUID(),
         title: "06/03/2023",
         rows: [
-            .init(id: "", amount: "1", time: Date().formatted()),
-            .init(id: "", amount: "2", time: Date().formatted()),
-            .init(id: "", amount: "3", time: Date().formatted()),
+            .init(id: UUID(), amount: "1", time: Date().formatted()),
+            .init(id: UUID(), amount: "2", time: Date().formatted()),
+            .init(id: UUID(), amount: "3", time: Date().formatted()),
         ]
     )
 

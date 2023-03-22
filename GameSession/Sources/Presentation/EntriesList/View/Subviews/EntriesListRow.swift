@@ -11,7 +11,7 @@ import SwiftUI
 struct EntriesListRow: View {
 
     struct State: Identifiable {
-        let id: String
+        let id: UUID
         let amount: String
         let time: String
     }
@@ -35,7 +35,7 @@ struct EntriesListRow: View {
 struct EntriesListRow_Preview: PreviewProvider {
 
     static var state = EntriesListRow.State(
-        id: "",
+        id: UUID(),
         amount: "1",
         time: Date().formatted()
     )
