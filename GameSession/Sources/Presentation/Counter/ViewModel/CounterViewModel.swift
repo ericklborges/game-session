@@ -15,7 +15,11 @@ final class CounterViewModel: ObservableObject {
     @Published var entriesSumText: String = "0"
 
     // MARK: - Properties
-    var gameSessions: [GameSession] { gameCounter.sessions }
+    var entriesListViewModel: EntriesListViewModel {
+        .init(counter: gameCounter)
+    }
+
+    private var gameSessions: [GameSession] { gameCounter.sessions }
 
     private var entriesSum: Int32 = 0 {
         didSet { entriesSumText = String(entriesSum) }

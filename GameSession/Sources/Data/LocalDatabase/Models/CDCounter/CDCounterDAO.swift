@@ -39,7 +39,8 @@ final class CDCounterDAO {
             let results = try context.fetch(fetchRequest)
 
             guard let cdCounter = results.first else { return nil }
-            cdCounter.sessions.insert(CDGameSession(session: session, context: context))
+            let newSession = CDGameSession(session: session, context: context)
+            cdCounter.sessions.insert(newSession)
 
             try context.save()
             return Counter(cdCounter: cdCounter)
@@ -60,5 +61,22 @@ final class CDCounterDAO {
             return nil
         }
     }
-}
 
+    @discardableResult
+    func clearSessions(id: UUID) -> Counter? {
+        let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest(id: id)
+
+        do {
+            let results = try context.fetch(fetchRequest)
+
+            guard let cdCounter = results.first else { return nil }
+            cdCounter.sessions.forEach { context.delete($0) }
+
+            try context.save()
+            return Counter(cdCounter: cdCounter)
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
+}

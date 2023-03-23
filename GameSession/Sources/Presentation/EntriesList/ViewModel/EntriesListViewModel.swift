@@ -14,18 +14,29 @@ class EntriesListViewModel: ObservableObject {
     @Published var sections: [EntriesListSection.State] = []
 
     // MARK: - Properties
-    private let gameSessions: [GameSession]
+    private var counter: Counter
+
+    // MARK: DAOs
+    private let counterDAO = CDCounterDAO(CoreDataStore.shared.context)
 
     // MARK: - Init & Setup
-    init(_ gameSessions: [GameSession]) {
-        self.gameSessions = gameSessions
-        setupSections()
+    init(counter: Counter) {
+        self.counter = counter
+        updateSections()
     }
 
-    private func setupSections() {
-        sections = gameSessions.map { makeSection($0) }
+    private func updateSections() {
+        sections = counter.sessions.map { makeSection($0) }
     }
 
+    // MARK: - Local Storage
+    func clearAllSessions() {
+        guard let clearedCounter = counterDAO.clearSessions(id: counter.id) else { return }
+        counter = clearedCounter
+        updateSections()
+    }
+
+    // MARK: - State Build
     private func makeSection(_ session: GameSession) -> EntriesListSection.State {
         .init(
             id: session.id,
