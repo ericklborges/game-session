@@ -50,6 +50,18 @@ final class CDCounterDAO {
         }
     }
 
+    func get(id: UUID) -> Counter? {
+        let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest(id: id)
+
+        do {
+            guard let cdCounter = try context.fetch(fetchRequest).first else { return nil }
+            return Counter(cdCounter: cdCounter)
+        } catch let error {
+            print(error)
+            return nil
+        }
+    }
+
     func getAll() -> [Counter]? {
         let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest()
 

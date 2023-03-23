@@ -46,6 +46,7 @@ struct EntriesListView: View {
                 }
             }
         }
+        .navigationTitle(viewModel.navigationTitle)
     }
 
     func deleteEntry(indexSet: IndexSet, sessionId: UUID) {

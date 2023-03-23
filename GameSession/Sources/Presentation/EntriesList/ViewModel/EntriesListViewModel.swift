@@ -15,6 +15,8 @@ class EntriesListViewModel: ObservableObject {
     @Published var sections: [EntriesListView.SectionData] = []
 
     // MARK: - Properties
+    var navigationTitle: String { String(counter.allSessionsEntriesSum) }
+
     private var counter: Counter
 
     // MARK: DAOs
@@ -42,6 +44,11 @@ class EntriesListViewModel: ObservableObject {
         guard let selectedSession = counter.sessions.first(where: { $0.id == sessionId }) else { return }
         let selectedEntry = selectedSession.entries[index]
         entryDAO.delete(id: selectedEntry.id)
+
+        if let updatedCounter = counterDAO.get(id: counter.id) {
+            counter = updatedCounter
+            updateSections()
+        }
     }
 
     // MARK: - State Build
