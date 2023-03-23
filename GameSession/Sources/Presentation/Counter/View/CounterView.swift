@@ -38,6 +38,7 @@ struct CounterView: View {
             }
             .padding()
             .background(Color(asset: GameSessionAsset.Colors.textColor))
+            .onAppear { viewModel.setupGameCounter() }
         }
     }
 

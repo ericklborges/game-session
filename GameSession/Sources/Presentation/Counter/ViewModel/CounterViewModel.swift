@@ -38,7 +38,7 @@ final class CounterViewModel: ObservableObject {
         setupGameCounter()
     }
 
-    private func setupGameCounter() {
+    func setupGameCounter() {
         gameCounter = getCounter()
         entriesSum = gameCounter.allSessionsEntriesSum
     }
