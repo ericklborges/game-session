@@ -15,8 +15,14 @@ public class CDEntry: NSManagedObject {
     @NSManaged public var timestamp: Date
     @NSManaged public var value: Int32
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<CDEntry> {
-        return NSFetchRequest<CDEntry>(entityName: "Entry")
+    @nonobjc public class func fetchRequest(id: UUID? = nil) -> NSFetchRequest<CDEntry> {
+        let fetchRequest = NSFetchRequest<CDEntry>(entityName: "Entry")
+
+        if let id {
+            fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        }
+
+        return fetchRequest
     }
 
     override public func awakeFromInsert() {

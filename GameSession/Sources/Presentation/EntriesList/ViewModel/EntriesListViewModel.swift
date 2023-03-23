@@ -7,17 +7,19 @@
 //
 
 import Combine
+import Foundation
 
 class EntriesListViewModel: ObservableObject {
 
     // MARK: - Published
-    @Published var sections: [EntriesListSection.State] = []
+    @Published var sections: [EntriesListView.SectionData] = []
 
     // MARK: - Properties
     private var counter: Counter
 
     // MARK: DAOs
     private let counterDAO = CDCounterDAO(CoreDataStore.shared.context)
+    private let entryDAO = CDEntryDAO(CoreDataStore.shared.context)
 
     // MARK: - Init & Setup
     init(counter: Counter) {
@@ -36,8 +38,14 @@ class EntriesListViewModel: ObservableObject {
         updateSections()
     }
 
+    func deleteEntry(index: Int, sessionId: UUID) {
+        guard let selectedSession = counter.sessions.first(where: { $0.id == sessionId }) else { return }
+        let selectedEntry = selectedSession.entries[index]
+        entryDAO.delete(id: selectedEntry.id)
+    }
+
     // MARK: - State Build
-    private func makeSection(_ session: GameSession) -> EntriesListSection.State {
+    private func makeSection(_ session: GameSession) -> EntriesListView.SectionData {
         .init(
             id: session.id,
             title: session.timestamp.formatted(date: .numeric, time: .omitted),
