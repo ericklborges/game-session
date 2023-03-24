@@ -12,7 +12,7 @@ import Foundation
 class EntriesListViewModel: ObservableObject {
 
     // MARK: - Published
-    @Published var sections: [EntriesListView.SectionData] = []
+    @Published var sections: [EntriesListSection.State] = []
 
     // MARK: - Properties
     private let counterId: UUID
@@ -33,18 +33,14 @@ class EntriesListViewModel: ObservableObject {
         updateSections(with: counter)
     }
 
+    func deleteEntry(_ entryRow: EntriesListRow.State) {
+        entryDAO.delete(id: entryRow.id)
+        fetchCounter()
+    }
+
     func clearAllSessionsInCounter() {
         guard let clearedCounter = counterDAO.clearSessions(id: counterId) else { return }
         updateSections(with: clearedCounter)
-    }
-
-    // FIXME: Pass entry id directly
-    func deleteEntry(index: Int, sessionId: UUID) {
-        guard let counter = counterDAO.get(id: counterId) else { return }
-        guard let selectedSession = counter.sessions.first(where: { $0.id == sessionId }) else { return }
-        let selectedEntry = selectedSession.entries[index]
-        entryDAO.delete(id: selectedEntry.id)
-        fetchCounter()
     }
 
     // MARK: - State Building
@@ -52,7 +48,7 @@ class EntriesListViewModel: ObservableObject {
         sections = counter.sessions.map { makeSection($0) }
     }
 
-    private func makeSection(_ session: GameSession) -> EntriesListView.SectionData {
+    private func makeSection(_ session: GameSession) -> EntriesListSection.State {
         .init(
             id: session.id,
             title: session.timestamp.formatted(date: .numeric, time: .omitted),

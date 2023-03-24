@@ -10,12 +10,6 @@ import SwiftUI
 
 struct EntriesListView: View {
 
-    struct SectionData: Identifiable {
-        let id: UUID
-        let title: String
-        let rows: [EntriesListRow.State]
-    }
-
     @State private var showingAlert = false
     @ObservedObject var viewModel: EntriesListViewModel
 
@@ -25,13 +19,8 @@ struct EntriesListView: View {
 
     var body: some View {
         List {
-            ForEach(viewModel.sections) { section in
-                Section(section.title) {
-                    ForEach(section.rows, content: EntriesListRow.init)
-                        .onDelete {
-                            deleteEntry(indexSet: $0, sessionId: section.id)
-                        }
-                }
+            ForEach(viewModel.sections) {
+                EntriesListSection($0, onDeleteRow: viewModel.deleteEntry)
             }
         }
         .toolbar {
@@ -46,11 +35,6 @@ struct EntriesListView: View {
                 }
             }
         } // FIXME: navigation title back again
-    }
-
-    func deleteEntry(indexSet: IndexSet, sessionId: UUID) {
-        guard let selectedEntryIndex = indexSet.first else { return }
-        viewModel.deleteEntry(index: selectedEntryIndex, sessionId: sessionId)
     }
 }
 

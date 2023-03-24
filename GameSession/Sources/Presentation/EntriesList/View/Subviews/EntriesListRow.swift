@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EntriesListRow: View {
 
-    struct State: Identifiable {
+    struct State: Hashable, Identifiable {
         let id: UUID
         let amount: String
         let time: String
