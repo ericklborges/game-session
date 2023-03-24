@@ -15,43 +15,43 @@ class EntriesListViewModel: ObservableObject {
     @Published var sections: [EntriesListView.SectionData] = []
 
     // MARK: - Properties
-    var navigationTitle: String { String(counter.allSessionsEntriesSum) }
-
-    private var counter: Counter
+    private let counterId: UUID
 
     // MARK: DAOs
     private let counterDAO = CDCounterDAO(CoreDataStore.shared.context)
     private let entryDAO = CDEntryDAO(CoreDataStore.shared.context)
 
     // MARK: - Init & Setup
-    init(counter: Counter) {
-        self.counter = counter
-        updateSections()
-    }
-
-    private func updateSections() {
-        sections = counter.sessions.map { makeSection($0) }
+    init(counterId: UUID) {
+        self.counterId = counterId
+        fetchCounter()
     }
 
     // MARK: - Local Storage
-    func clearAllSessions() {
-        guard let clearedCounter = counterDAO.clearSessions(id: counter.id) else { return }
-        counter = clearedCounter
-        updateSections()
+    func fetchCounter() {
+        guard let counter = counterDAO.get(id: counterId) else { return }
+        updateSections(with: counter)
     }
 
+    func clearAllSessionsInCounter() {
+        guard let clearedCounter = counterDAO.clearSessions(id: counterId) else { return }
+        updateSections(with: clearedCounter)
+    }
+
+    // FIXME: Pass entry id directly
     func deleteEntry(index: Int, sessionId: UUID) {
+        guard let counter = counterDAO.get(id: counterId) else { return }
         guard let selectedSession = counter.sessions.first(where: { $0.id == sessionId }) else { return }
         let selectedEntry = selectedSession.entries[index]
         entryDAO.delete(id: selectedEntry.id)
-
-        if let updatedCounter = counterDAO.get(id: counter.id) {
-            counter = updatedCounter
-            updateSections()
-        }
+        fetchCounter()
     }
 
-    // MARK: - State Build
+    // MARK: - State Building
+    private func updateSections(with counter: Counter) {
+        sections = counter.sessions.map { makeSection($0) }
+    }
+
     private func makeSection(_ session: GameSession) -> EntriesListView.SectionData {
         .init(
             id: session.id,

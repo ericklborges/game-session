@@ -16,7 +16,7 @@ final class CounterViewModel: ObservableObject {
 
     // MARK: - Properties
     var entriesListViewModel: EntriesListViewModel {
-        .init(counter: gameCounter)
+        .init(counterId: gameCounter.id)
     }
 
     private var gameSessions: [GameSession] { gameCounter.sessions }

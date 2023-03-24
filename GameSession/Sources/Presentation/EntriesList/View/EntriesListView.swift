@@ -42,11 +42,10 @@ struct EntriesListView: View {
                 Button("Cancel", role: .cancel) { }
 
                 Button("Discard", role: .destructive) {
-                    viewModel.clearAllSessions()
+                    viewModel.clearAllSessionsInCounter()
                 }
             }
-        }
-        .navigationTitle(viewModel.navigationTitle)
+        } // FIXME: navigation title back again
     }
 
     func deleteEntry(indexSet: IndexSet, sessionId: UUID) {
@@ -63,32 +62,5 @@ struct EntriesListView_Preview: PreviewProvider {
         }
     }
 
-    static var viewModelStub = EntriesListViewModel(
-        counter: Counter(
-            title: "",
-            sessions: [
-                GameSession(
-                    timestamp: .today,
-                    entries: [
-                        Entry(timestamp: .today, value: 1),
-                        Entry(timestamp: .today, value: -1),
-                    ]
-                ),
-                GameSession(
-                    timestamp: .tomorrow,
-                    entries: [
-                        Entry(timestamp: .today.add(1, to: .second), value: 2),
-                        Entry(timestamp: .today.add(2, to: .second), value: -2),
-                    ]
-                ),
-                GameSession(
-                    timestamp: .yesterday,
-                    entries: [
-                        Entry(timestamp: .today.add(-1, to: .second), value: 3),
-                        Entry(timestamp: .today.add(-2, to: .second), value: -3),
-                    ]
-                ),
-            ]
-        )
-    )
+    static var viewModelStub = EntriesListViewModel(counterId: UUID())
 }
