@@ -12,6 +12,7 @@ import Foundation
 class EntriesListViewModel: ObservableObject {
 
     // MARK: - Published
+    @Published var navTitle: String = ""
     @Published var sections: [EntriesListSection.State] = []
 
     // MARK: - Properties
@@ -30,7 +31,7 @@ class EntriesListViewModel: ObservableObject {
     // MARK: - Local Storage
     func fetchCounter() {
         guard let counter = counterDAO.get(id: counterId) else { return }
-        updateSections(with: counter)
+        updateState(with: counter)
     }
 
     func deleteEntry(_ entryRow: EntriesListRow.State) {
@@ -40,18 +41,19 @@ class EntriesListViewModel: ObservableObject {
 
     func clearAllSessionsInCounter() {
         guard let clearedCounter = counterDAO.clearSessions(id: counterId) else { return }
-        updateSections(with: clearedCounter)
+        updateState(with: clearedCounter)
     }
 
     // MARK: - State Building
-    private func updateSections(with counter: Counter) {
+    private func updateState(with counter: Counter) {
+        navTitle = String(counter.allSessionsEntriesSum)
         sections = counter.sessions.map { makeSection($0) }
     }
 
     private func makeSection(_ session: GameSession) -> EntriesListSection.State {
         .init(
             id: session.id,
-            title: session.timestamp.formatted(date: .numeric, time: .omitted),
+            title: session.timestamp.formatted(date: .numeric, time: .omitted) + " [\(session.entriesSum)]",
             rows: session.entries.map { makeRow($0) }
         )
     }

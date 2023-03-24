@@ -34,7 +34,8 @@ struct EntriesListView: View {
                     viewModel.clearAllSessionsInCounter()
                 }
             }
-        } // FIXME: navigation title back again
+        }
+        .navigationTitle(viewModel.navTitle)
     }
 }
 
