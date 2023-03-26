@@ -8,7 +8,11 @@ extension InfoPlist {
             "UIMainStoryboardFile": "",
             "UILaunchStoryboardName": "LaunchScreen",
             "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait"],
-            "ITSAppUsesNonExemptEncryption": "NO"
+            "ITSAppUsesNonExemptEncryption": "NO",
+            "UIApplicationSceneManifest": [
+                "UIApplicationSupportsMultipleScenes": "NO",
+                "UISceneConfigurations": [:]
+            ]
         ]
     )
 }
