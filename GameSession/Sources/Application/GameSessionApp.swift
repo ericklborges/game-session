@@ -9,7 +9,7 @@ struct GameSessionApp: App {
 
     var body: some Scene {
         WindowGroup {
-            CounterView()
+            CounterListView()
         }
     }
 }

@@ -13,6 +13,7 @@ final class CounterViewModel: ObservableObject {
 
     // MARK: - Published
     @Published var entriesSumText: String = "0"
+    var navigationTitle: String { gameCounter.title }
 
     // MARK: - Properties
     var entriesListViewModel: EntriesListViewModel {
@@ -20,47 +21,28 @@ final class CounterViewModel: ObservableObject {
     }
 
     private var gameSessions: [GameSession] { gameCounter.sessions }
+    private var gameCounter: Counter
+    private let counterStep: Int32 = 1
 
     private var entriesSum: Int32 = 0 {
         didSet { entriesSumText = String(entriesSum) }
     }
-
-    private let counterStep: Int32 = 1
-    private var gameCounter = Counter(title: "First Counter")
 
     // MARK: DAOs
     private let counterDAO = CDCounterDAO(CoreDataStore.shared.context)
     private let sessionDAO = CDSessionDAO(CoreDataStore.shared.context)
 
     // MARK: - Init & Setup
-
-    init() {
-        setupGameCounter()
+    init(counter: Counter) {
+        gameCounter = counter
+        updateEntriesSum()
     }
 
-    func setupGameCounter() {
-        gameCounter = getCounter()
+    private func updateEntriesSum() {
         entriesSum = gameCounter.allSessionsEntriesSum
     }
 
     // MARK: - Local Storage
-
-    func getCounter() -> Counter {
-        guard let counters = counterDAO.getAll() else {
-            return gameCounter
-        }
-
-        if let firstCounter = counters.first {
-            return firstCounter
-        }
-
-        if let newCounter = counterDAO.create(title: "First Counter") {
-            return newCounter
-        }
-
-        return gameCounter
-    }
-
     func addEntryToSession(_ value: Int32) {
         let newEntry = Entry(value: value)
 
@@ -79,16 +61,15 @@ final class CounterViewModel: ObservableObject {
             addSessionToCounter(newEntry)
         }
 
-        gameCounter = getCounter()
+        refreshCounter()
     }
 
-    func addSessionToCounter(_ entry: Entry) {
+    private func addSessionToCounter(_ entry: Entry) {
         let newSession = GameSession(entry: entry)
         counterDAO.update(id: gameCounter.id, adding: newSession)
     }
 
     // MARK: - Actions
-
     func add() {
         entriesSum += counterStep
         addEntryToSession(counterStep)
@@ -97,5 +78,10 @@ final class CounterViewModel: ObservableObject {
     func subtract() {
         entriesSum -= counterStep
         addEntryToSession(-counterStep)
+    }
+
+    func refreshCounter() {
+        gameCounter = counterDAO.get(id: gameCounter.id) ?? Counter(title: "Corrupted Counter")
+        updateEntriesSum()
     }
 }

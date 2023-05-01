@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-struct Counter {
+struct Counter: Identifiable {
     let id: UUID
     let title: String
     private var _sessions: [GameSession]

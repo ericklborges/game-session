@@ -8,37 +8,36 @@
 
 import SwiftUI
 
-struct CounterView: View {
+struct CounterView: View { 
 
-    @StateObject var viewModel = CounterViewModel()
+    @StateObject var viewModel: CounterViewModel
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 16.0) {
-                CounterDisplayView(text: viewModel.entriesSumText)
-                    .layoutPriority(1)
+        VStack(spacing: 16.0) {
+            CounterDisplayView(text: viewModel.entriesSumText)
+                .layoutPriority(1)
 
-                Spacer()
+            Spacer()
 
-                CounterButton(function: .add) {
-                    viewModel.add()
-                }
-
-                CounterButton(function: .subtract) {
-                    viewModel.subtract()
-                }
-
-                NavigationLink(
-                    destination: { EntriesListView(viewModel.entriesListViewModel) },
-                    label: { Text("History") }
-                )
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.roundedRectangle)
-
+            CounterButton(function: .add) {
+                viewModel.add()
             }
-            .padding()
-            .background(Color(asset: GameSessionAsset.Colors.textColor))
-            .onAppear { viewModel.setupGameCounter() }
+
+            CounterButton(function: .subtract) {
+                viewModel.subtract()
+            }
+
+        }
+        .padding()
+        .background(Color(asset: GameSessionAsset.Colors.textColor))
+        .onAppear { viewModel.refreshCounter() }
+        .navigationTitle(viewModel.navigationTitle)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            NavigationLink(
+                destination: { EntriesListView(viewModel.entriesListViewModel) },
+                label: { Text("History") }
+            )
         }
     }
 
@@ -46,6 +45,10 @@ struct CounterView: View {
 
 struct SessionView_Previews: PreviewProvider {
     static var previews: some View {
-        CounterView()
+        NavigationView {
+            CounterView(
+                viewModel: CounterViewModel(counter: Counter(title: "Foo Counter"))
+            )
+        }
     }
 }
