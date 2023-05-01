@@ -74,6 +74,21 @@ final class CDCounterDAO {
         }
     }
 
+    func delete(id: UUID) {
+        let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest(id: id)
+
+        do {
+            let results = try context.fetch(fetchRequest)
+            guard let cdCounter = results.first else { return }
+
+            context.delete(cdCounter)
+            try context.save()
+
+        } catch let error {
+            print(error)
+        }
+    }
+
     @discardableResult
     func clearSessions(id: UUID) -> Counter? {
         let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest(id: id)

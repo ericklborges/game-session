@@ -21,4 +21,10 @@ class CounterListViewModel: ObservableObject {
     func getAllCounters() {
         counters = counterDAO.getAll() ?? []
     }
+
+    func deleteCounter(at index: Int) {
+        let selectedCounter = counters[index]
+        counterDAO.delete(id: selectedCounter.id)
+        getAllCounters()
+    }
 }

@@ -21,6 +21,10 @@ struct CounterListView: View {
                 ForEach(viewModel.counters) {
                     CounterListCell($0)
                 }
+                .onDelete {
+                    guard let selectedCounterIndex = $0.first else { return }
+                    viewModel.deleteCounter(at: selectedCounterIndex)
+                }
             }
             .listStyle(.plain)
             .navigationTitle("Counters")
