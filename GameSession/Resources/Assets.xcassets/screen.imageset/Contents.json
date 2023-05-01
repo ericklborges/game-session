@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "screen.png",
+      "filename" : "Screen-light.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Screen-dark.pdf",
       "idiom" : "universal"
     }
   ],

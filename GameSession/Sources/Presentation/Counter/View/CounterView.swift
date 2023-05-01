@@ -29,7 +29,7 @@ struct CounterView: View {
 
         }
         .padding()
-        .background(Color(asset: GameSessionAsset.Colors.textColor))
+        .background(Color(asset: GameSessionAsset.Colors.backgroundColor))
         .onAppear { viewModel.refreshCounter() }
         .navigationTitle(viewModel.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
