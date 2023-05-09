@@ -12,7 +12,7 @@ extension Target {
             platform: platform,
             product: .app,
             bundleId: "com.\(organization).\(name)",
-            deploymentTarget: .iOS(targetVersion: "15.7", devices: .iphone),
+            deploymentTarget: .iOS(targetVersion: "16.0", devices: .iphone),
             infoPlist: .basePlist,
             sources: ["Sources/**"],
             resources: ["Resources/**"],
