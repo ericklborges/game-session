@@ -10,14 +10,19 @@ import SwiftUI
 
 struct NewCounterView: View {
 
+    enum Field {
+        case counterName
+    }
+
     @Environment(\.dismiss) var dismiss
     @State var counterTitle: String = ""
     @State var showInvalidTitleFeedback = false
+    @FocusState var focusedField: Field?
 
     var viewModel = NewCounterViewModel()
 
     var body: some View {
-        VStack {
+        Form {
             Text("Choose a title for your new counter")
                 .bold()
                 .font(.title3)
@@ -26,26 +31,16 @@ struct NewCounterView: View {
             TextField(
                 "Counter title",
                 text: $counterTitle,
-                prompt: Text("ex: Rocket League 1x1")
+                prompt: Text("min. 3 characters")
             )
-
-            if showInvalidTitleFeedback {
-                Text("min. 3 characters")
-                    .bold()
-                    .foregroundColor(.red)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
+            .focused($focusedField, equals: .counterName)
 
             Spacer()
 
             Button(
                 action: {
-                    let isTitleValid = counterTitle.count > 3
-                    showInvalidTitleFeedback = !isTitleValid
-                    if isTitleValid {
-                        viewModel.createCounter(named: counterTitle)
-                        dismiss()
-                    }
+                    viewModel.createCounter(named: counterTitle)
+                    dismiss()
                 },
                 label: {
                     Text("Save")
@@ -54,7 +49,10 @@ struct NewCounterView: View {
             )
             .buttonStyle(.borderedProminent)
             .buttonBorderShape(.roundedRectangle)
+            .disabled(counterTitle.count < 3)
         }
+        .onAppear { focusedField = .counterName }
+        .formStyle(.columns)
         .padding()
     }
 }
