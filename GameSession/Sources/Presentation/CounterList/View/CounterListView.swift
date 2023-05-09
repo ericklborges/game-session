@@ -10,39 +10,45 @@ import SwiftUI
 
 struct CounterListView: View {
 
-    @State var newCounterName = ""
-    @State var showNewCounterView = false
+    // MARK: - Properties
 
-    @ObservedObject var viewModel = CounterListViewModel()
+    @ObservedObject var viewModel = CounterListViewModel(initialState: .init())
+
+    // MARK: - Views
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(viewModel.counters) {
-                    CounterListCell($0)
-                }
-                .onDelete {
-                    guard let selectedCounterIndex = $0.first else { return }
-                    viewModel.deleteCounter(at: selectedCounterIndex)
-                }
-            }
-            .listStyle(.plain)
-            .navigationTitle("Counters")
-            .navigationBarTitleDisplayMode(.large)
-            .onAppear { refreshCounters() }
-            .toolbar {
-                Button(
-                    action: { showNewCounterView = true },
-                    label: { Image(systemName: "plus") }
-                )
-                .sheet(
-                    isPresented: $showNewCounterView,
-                    onDismiss: { refreshCounters() },
-                    content: { NewCounterView() }
-                )
-            }
+            counterList
+                .navigationTitle("Counters")
+                .navigationBarTitleDisplayMode(.large)
+                .toolbar { addButton }
+                .onAppear(perform: refreshCounters)
+            
         }
     }
+
+    private var counterList: some View {
+        List(
+            viewModel.countersBinding,
+            editActions: [.delete],
+            rowContent: { $counter in CounterListCell(counter) }
+        )
+        .listStyle(.plain)
+    }
+
+    private var addButton: some View {
+        Button(
+            action: viewModel.showCreatCounter,
+            label: { Image(systemName: "plus") }
+        )
+        .sheet(
+            isPresented: viewModel.shouldCreateCounterBinding,
+            onDismiss: refreshCounters,
+            content: { NewCounterView() }
+        )
+    }
+
+    // MARK: - Actions
 
     private func refreshCounters() {
         viewModel.getAllCounters()

@@ -7,24 +7,48 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
+
+struct CounterListViewState {
+    var counters: [Counter] = []
+    var shouldCreateCounter = false
+}
 
 class CounterListViewModel: ObservableObject {
 
-    // MARK: - Published
-    @Published var counters: [Counter] = []
+    // MARK: - State
+    @Published private(set) var state: CounterListViewState = .init()
+
+    // MARK: - Bindable State Properties
+    var countersBinding: Binding<[Counter]> {
+        Binding(to: \.state.counters, in: self)
+    }
+
+    var shouldCreateCounterBinding: Binding<Bool> {
+        Binding(to: \.state.shouldCreateCounter, in: self)
+    }
 
     // MARK: - DAOs
     private let counterDAO = CDCounterDAO(CoreDataStore.shared.context)
 
+    // MARK: - Init
+    init(initialState: CounterListViewState) {
+        self.state = state
+    }
+
     // MARK: - Local Storage
     func getAllCounters() {
-        counters = counterDAO.getAll() ?? []
+        state.counters = counterDAO.getAll() ?? []
     }
 
     func deleteCounter(at index: Int) {
-        let selectedCounter = counters[index]
+        let selectedCounter = state.counters[index]
         counterDAO.delete(id: selectedCounter.id)
         getAllCounters()
+    }
+
+    // MARK: - Actions
+    func showCreatCounter() {
+        state.shouldCreateCounter = true
     }
 }
