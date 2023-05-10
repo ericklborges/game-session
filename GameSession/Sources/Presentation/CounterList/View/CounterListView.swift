@@ -28,11 +28,16 @@ struct CounterListView: View {
     }
 
     private var counterList: some View {
-        List(
-            viewModel.countersBinding,
-            editActions: [.delete],
-            rowContent: { $counter in CounterListCell(counter) }
-        )
+        List {
+            ForEach(
+                viewModel.state.counters,
+                content: CounterListCell.init
+            )
+            .onDelete {
+                guard let selectedCounterIndex = $0.first else { return }
+                viewModel.deleteCounter(at: selectedCounterIndex)
+            }
+        }
         .listStyle(.plain)
     }
 
