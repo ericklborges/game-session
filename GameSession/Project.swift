@@ -9,6 +9,7 @@ let project = Project.main(
             name: "GameSession",
             organization: "bcl",
             platform: .iOS,
+            entitlements: .relativeToRoot("GameSession/Sources/Application/GameSession.entitlements"),
             coreDataModels: [.gameSession]
         )
     ]

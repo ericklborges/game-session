@@ -5,6 +5,7 @@ extension Target {
         name: String,
         organization: String,
         platform: Platform,
+        entitlements: Path? = nil,
         coreDataModels: [CoreDataModel] = []
     ) -> Target {
         .init(
@@ -16,6 +17,7 @@ extension Target {
             infoPlist: .basePlist,
             sources: ["Sources/**"],
             resources: ["Resources/**"],
+            entitlements: entitlements,
             coreDataModels: coreDataModels
         )
     }

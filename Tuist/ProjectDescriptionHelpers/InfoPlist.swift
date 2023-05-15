@@ -12,7 +12,8 @@ extension InfoPlist {
             "UIApplicationSceneManifest": [
                 "UIApplicationSupportsMultipleScenes": "NO",
                 "UISceneConfigurations": [:]
-            ]
+            ],
+            "UIBackgroundModes": ["remote-notification"]
         ]
     )
 }
