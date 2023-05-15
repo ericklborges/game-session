@@ -1,8 +1,14 @@
+# -- Setup -- 
+
+before_all do |lane|
+  load_dotenv('.env')
+end
+
 # -- Lanes -- 
 
 lane :beta do
-  load_dotenv('.env')
-  
+  match_certificates()
+
   build_app(
     scheme: "GameSession",
     output_directory: "fastlane/build"
@@ -12,6 +18,24 @@ lane :beta do
     api_key: generateAppstoreConnectApiKey(),
     ipa: 'fastlane/build/GameSession.ipa',
     skip_waiting_for_build_processing: true
+  )
+end
+
+lane :match_certificates do
+  match(
+    type: "appstore",
+    app_identifier: ["com.bcl.GameSession"],
+    api_key: generateAppstoreConnectApiKey(),
+    git_branch: "main"
+  )
+end
+
+lane :match_nuke_certificates do
+  match_nuke(
+    type: "appstore",
+    app_identifier: ["com.bcl.GameSession"],
+    api_key: generateAppstoreConnectApiKey(),
+    git_branch: "main"
   )
 end
 
