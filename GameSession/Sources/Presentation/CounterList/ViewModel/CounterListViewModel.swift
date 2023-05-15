@@ -38,7 +38,8 @@ class CounterListViewModel: ObservableObject {
 
     // MARK: - Local Storage
     func getAllCounters() {
-        state.counters = counterDAO.getAll() ?? []
+        let allCounters = counterDAO.getAll() ?? []
+        state.counters = allCounters.sorted(by: \.title)
     }
 
     func deleteCounter(at index: Int) {
