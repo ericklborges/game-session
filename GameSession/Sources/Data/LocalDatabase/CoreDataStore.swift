@@ -15,7 +15,7 @@ final class CoreDataStore {
     private init() {}
 
     // MARK: - Database References
-    private lazy var container = NSPersistentContainer(name: "GameSession")
+    private lazy var container = NSPersistentCloudKitContainer(name: "GameSession")
 
     var context: NSManagedObjectContext { container.viewContext }
 
@@ -29,6 +29,8 @@ final class CoreDataStore {
             guard let error else { return }
             fatalError("Unable to load persistent stores: \(error)")
         }
+
+        setupCloudkitSchema()
     }
 
     private func removeReferencesToStores() {
@@ -45,3 +47,16 @@ final class CoreDataStore {
         return description
     }
 }
+
+private extension CoreDataStore {
+    private func setupCloudkitSchema() {
+        #if DEBUG
+        do {
+            try container.initializeCloudKitSchema(options: [])
+        } catch {
+            print(error)
+        }
+        #endif
+    }
+}
+
