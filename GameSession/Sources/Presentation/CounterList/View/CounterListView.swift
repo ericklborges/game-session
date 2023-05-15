@@ -23,7 +23,7 @@ struct CounterListView: View {
                 .navigationBarTitleDisplayMode(.large)
                 .toolbar { addButton }
                 .onAppear(perform: refreshCounters)
-            
+                .refreshable { refreshCounters() }
         }
     }
 
