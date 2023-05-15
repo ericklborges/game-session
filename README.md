@@ -8,11 +8,14 @@ A simple counter meant to help you keep track of your game sessions :)
 - [x] Entries history view
 - [x] Delete entries
 - [x] Have multiple counters
+- [x] Sync counters with iCloud
 - [ ] Create custom named sessions
 - [ ] Delete whole sessions
 - [ ] Edit sessions
 - [ ] Configure counter step (e.g.: +1, +2, +n)
 - [ ] Edit counter name
 
-**Code**: @ericklborges
+
 **Design**: @djxoris (instagram)
+
+**Code**: @ericklborges
