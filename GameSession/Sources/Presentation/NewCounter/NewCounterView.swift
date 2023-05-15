@@ -22,43 +22,64 @@ struct NewCounterView: View {
     var viewModel = NewCounterViewModel()
 
     var body: some View {
-        Form {
-            Text("Choose a title for your new counter")
-                .bold()
-                .font(.title3)
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-            TextField(
-                "Counter title",
-                text: $counterTitle,
-                prompt: Text("min. 3 characters")
-            )
-            .focused($focusedField, equals: .counterName)
-
-            Spacer()
-
-            Button(
-                action: {
-                    viewModel.createCounter(named: counterTitle)
-                    dismiss()
-                },
-                label: {
-                    Text("Save")
-                        .frame(maxWidth: .infinity, minHeight: 40)
-                }
-            )
-            .buttonStyle(.borderedProminent)
-            .buttonBorderShape(.roundedRectangle)
-            .disabled(counterTitle.count < 3)
+        NavigationView{
+            Form {
+                titleLabel
+                textField
+                Spacer()
+                saveButton
+            }
+            .formStyle(.columns)
+            .padding()
+            .toolbar { cancelButton }
+            .navigationTitle("New Counter")
+            .onAppear { focusedField = .counterName }
         }
-        .onAppear { focusedField = .counterName }
-        .formStyle(.columns)
-        .padding()
+    }
+
+    private var saveButton: some View {
+        Button(
+            action: {
+                viewModel.createCounter(named: counterTitle)
+                dismiss()
+            },
+            label: {
+                Text("Save")
+                    .frame(maxWidth: .infinity, minHeight: 40)
+            }
+        )
+        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.roundedRectangle)
+        .disabled(counterTitle.count < 3)
+    }
+
+    private var titleLabel: some View {
+        Text("Choose a title")
+            .bold()
+            .font(.title3)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var textField: some View {
+        TextField(
+            "Counter title",
+            text: $counterTitle,
+            prompt: Text("min. 3 characters")
+        )
+        .focused($focusedField, equals: .counterName)
+    }
+
+    private var cancelButton: some View {
+        Button(
+            action: { dismiss() },
+            label: { Text("Cancel") }
+        )
     }
 }
 
 struct NewCounter_Previews: PreviewProvider {
     static var previews: some View {
         NewCounterView()
+            .navigationTitle("Preview")
     }
 }
