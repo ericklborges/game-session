@@ -13,6 +13,17 @@ extension InfoPlist {
         )
     }
 
+    public static func watchApp(adding newValues: [String : Value] = [:]) -> InfoPlist {
+        .extendingDefault(
+            with: [:].add(newValues)
+        )
+    }
+
+    public static func watchAppExtension(adding newValues: [String : Value] = [:]) -> InfoPlist {
+        .extendingDefault(
+            with: [:].add(newValues)
+        )
+    }
 }
 
 private extension Dictionary where Key == String, Value == InfoPlist.Value {

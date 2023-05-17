@@ -22,7 +22,6 @@ let project = Project.main(
             name: projectName,
             platform: .iOS,
             entitlements: .appEntitlements,
-            deploymentTarget: .iOS(targetVersion: "16.0", devices: .iphone),
             infoPlist: .iOSApp(adding: iOSAppInfoPlistValues),
             coreDataModels: [.gameSession]
         )
