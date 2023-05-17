@@ -3,21 +3,24 @@ import ProjectDescription
 extension Target {
     public static func app(
         name: String,
-        organization: String,
         platform: Platform,
+        deploymentTarget: DeploymentTarget,
+        infoPlist: InfoPlist,
         entitlements: Path? = nil,
+        dependencies: [TargetDependency] = [],
         coreDataModels: [CoreDataModel] = []
     ) -> Target {
         .init(
             name: name,
             platform: platform,
             product: .app,
-            bundleId: "com.\(organization).\(name)",
-            deploymentTarget: .iOS(targetVersion: "16.0", devices: .iphone),
-            infoPlist: .basePlist,
+            bundleId: baseBundleId,
+            deploymentTarget: deploymentTarget,
+            infoPlist: infoPlist,
             sources: ["App/Sources/**"],
             resources: ["App/Resources/**"],
             entitlements: entitlements,
+            dependencies: dependencies,
             coreDataModels: coreDataModels
         )
     }
