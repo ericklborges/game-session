@@ -15,8 +15,8 @@ extension Target {
             bundleId: "com.\(organization).\(name)",
             deploymentTarget: .iOS(targetVersion: "16.0", devices: .iphone),
             infoPlist: .basePlist,
-            sources: ["Sources/**"],
-            resources: ["Resources/**"],
+            sources: ["App/Sources/**"],
+            resources: ["App/Resources/**"],
             entitlements: entitlements,
             coreDataModels: coreDataModels
         )
