@@ -23,7 +23,17 @@ let project = Project.main(
             platform: .iOS,
             entitlements: .appEntitlements,
             infoPlist: .iOSApp(adding: iOSAppInfoPlistValues),
+            dependencies: [.target(name: "WatchApp")],
             coreDataModels: [.gameSession]
+        ),
+        .watchApp(
+            name: "WatchApp",
+            infoPlist: .watchApp(),
+            dependencies: [.target(name: "WatchAppExtension")]
+        ),
+        .watchExtension(
+            name: "WatchAppExtension",
+            infoPlist: .watchAppExtension()
         )
     ]
 )
