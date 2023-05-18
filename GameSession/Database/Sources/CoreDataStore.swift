@@ -8,19 +8,33 @@
 
 import CoreData
 
-final class CoreDataStore {
+public final class CoreDataStore {
 
-    static let shared = CoreDataStore()
+    public static let shared = CoreDataStore()
 
     private init() {}
 
     // MARK: - Database References
-    private lazy var container = NSPersistentCloudKitContainer(name: "GameSession")
+    private lazy var container = NSPersistentCloudKitContainer(
+        name: "GameSession",
+        managedObjectModel: managedObjectModel
+    )
 
-    var context: NSManagedObjectContext { container.viewContext }
+    private lazy var managedObjectModel: NSManagedObjectModel = {
+        guard let url = Bundle.module.url(forResource: "GameSession", withExtension: "momd") else {
+            fatalError("Could not find URL for CoreData model named \"GameSession\"")
+        }
+        guard let model = NSManagedObjectModel(contentsOf: url) else {
+            fatalError("Could not find CoreData for url: \(url)")
+        }
+        return model
+    }()
+
+
+    public var context: NSManagedObjectContext { container.viewContext }
 
     // MARK: - Life Cycle
-    func loadStore(inMemory: Bool = false) {
+    public func loadStore(inMemory: Bool = false) {
         if inMemory {
             container.persistentStoreDescriptions = [makeStoreInMemoryDescription()]
         }

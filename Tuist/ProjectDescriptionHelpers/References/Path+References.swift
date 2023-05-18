@@ -1,7 +1,7 @@
 import ProjectDescription
 
 extension Path {
-    public static var appEntitlements: Path = .relativeToRoot(
-        "GameSession/App/Sources/Application/GameSession.entitlements"
+    public static var Database: Path = .relativeToRoot(
+        "GameSession/Database/Database.entitlements"
     )
 }

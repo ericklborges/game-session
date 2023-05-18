@@ -6,6 +6,7 @@
 //  Copyright © 2023 bcl. All rights reserved.
 //
 
+import Database_iOS
 import SwiftUI
 
 struct CounterListCell: View {

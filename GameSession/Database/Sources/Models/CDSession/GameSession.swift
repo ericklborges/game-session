@@ -6,26 +6,30 @@
 //  Copyright © 2023 bcl. All rights reserved.
 //
 
-import Foundation
+#if os(iOS)
+import Core_iOS
+#elseif os(watchOS)
+import Core_watchOS
+#endif
 import CoreData
 
-struct GameSession {
-    let id: UUID
-    let timestamp: GSDate
+public struct GameSession {
+    public let id: UUID
+    public let timestamp: GSDate
     private var _entries: [Entry]
 
-    var entries: [Entry] {
+    public var entries: [Entry] {
         get { _entries.sorted(by: \.timestamp, using: >) }
         set { _entries = newValue }
     }
 
-    var entriesSum: Int32 {
+    public var entriesSum: Int32 {
         _entries
             .map(\.value)
             .reduce(0, +)
     }
 
-    init(
+    public init(
         id: UUID = UUID(),
         timestamp: GSDate = .today,
         entries: [Entry] = []
@@ -35,7 +39,7 @@ struct GameSession {
         self._entries = entries
     }
 
-    init(entry: Entry) {
+    public init(entry: Entry) {
         self.init(entries: [entry])
     }
 

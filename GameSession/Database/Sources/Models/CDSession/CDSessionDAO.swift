@@ -6,19 +6,18 @@
 //  Copyright © 2023 bcl. All rights reserved.
 //
 
-import Foundation
 import CoreData
 
-final class CDSessionDAO {
+public final class CDSessionDAO {
 
     private let context: NSManagedObjectContext
 
-    init(_ context: NSManagedObjectContext) {
+    public init(_ context: NSManagedObjectContext) {
         self.context = context
     }
 
     @discardableResult
-    func create(entry: Entry? = nil) -> GameSession? {
+    public func create(entry: Entry? = nil) -> GameSession? {
         let cdSession = CDGameSession(context: context)
 
         if let entry {
@@ -37,7 +36,7 @@ final class CDSessionDAO {
     }
 
     @discardableResult
-    func update(id: UUID, adding entry: Entry) -> GameSession? {
+    public func update(id: UUID, adding entry: Entry) -> GameSession? {
         let fetchRequest: NSFetchRequest<CDGameSession> = CDGameSession.fetchRequest(id: id)
 
         do {

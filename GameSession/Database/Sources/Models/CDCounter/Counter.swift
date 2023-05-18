@@ -6,26 +6,25 @@
 //  Copyright © 2023 bcl. All rights reserved.
 //
 
-import Foundation
 import CoreData
 
-struct Counter: Identifiable {
-    let id: UUID
-    let title: String
+public struct Counter: Identifiable {
+    public let id: UUID
+    public let title: String
     private var _sessions: [GameSession]
 
-    var sessions: [GameSession] {
+    public var sessions: [GameSession] {
         get { _sessions.sorted(by: \.timestamp, using: >) }
         set { _sessions = newValue }
     }
 
-    var allSessionsEntriesSum: Int32 {
+    public var allSessionsEntriesSum: Int32 {
         sessions
             .map(\.entriesSum)
             .reduce(0, +)
     }
 
-    init(
+    public init(
         id: UUID = UUID(),
         title: String,
         sessions: [GameSession] = []

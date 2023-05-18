@@ -6,18 +6,17 @@
 //  Copyright © 2023 bcl. All rights reserved.
 //
 
-import Foundation
 import CoreData
 
-final class CDEntryDAO {
+public final class CDEntryDAO {
 
     private let context: NSManagedObjectContext
 
-    init(_ context: NSManagedObjectContext) {
+    public init(_ context: NSManagedObjectContext) {
         self.context = context
     }
 
-    func delete(id: UUID) {
+    public func delete(id: UUID) {
         let fetchRequest: NSFetchRequest<CDEntry> = CDEntry.fetchRequest(id: id)
 
         do {

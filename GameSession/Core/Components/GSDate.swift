@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct GSDate {
-    let rawValue: Date
-    let calendar: Calendar
-    let timeZone: TimeZone
+public struct GSDate {
+    public let rawValue: Date
+    public let calendar: Calendar
+    public let timeZone: TimeZone
 
-    init(
+    public init(
         _ date: Date = Date(),
         timeZone: TimeZone = .current,
         calendar: Calendar = .current
@@ -24,7 +24,7 @@ struct GSDate {
         self.calendar = calendar
     }
 
-    init?(
+    public init?(
         day: Int,
         month: Int,
         year: Int,
@@ -52,11 +52,11 @@ struct GSDate {
 // MARK: - Equatable
 
 extension GSDate: Equatable {
-    static func == (_ lhs: GSDate, _ rhs: GSDate) -> Bool {
+    public static func == (_ lhs: GSDate, _ rhs: GSDate) -> Bool {
         lhs.rawValue == rhs.rawValue
     }
 
-    static func != (_ lhs: GSDate, _ rhs: GSDate) -> Bool {
+    public static func != (_ lhs: GSDate, _ rhs: GSDate) -> Bool {
         lhs.rawValue != rhs.rawValue
     }
 }
@@ -76,19 +76,19 @@ extension GSDate: Comparable {
 // MARK: - Values
 
 extension GSDate {
-    static var today: GSDate { .init(Date()) }
-    static var tomorrow: GSDate { today.add(1, to: .day) }
-    static var yesterday: GSDate { today.add(-1, to: .day) }
+    public static var today: GSDate { .init(Date()) }
+    public static var tomorrow: GSDate { today.add(1, to: .day) }
+    public static var yesterday: GSDate { today.add(-1, to: .day) }
 }
 
 // MARK: - Comparations
 
 extension GSDate {
-    func isSameDayMonthYear(as otherDate: GSDate) -> Bool {
+    public func isSameDayMonthYear(as otherDate: GSDate) -> Bool {
         isSameDate(as: otherDate, comparing: [.day, .month, .year])
     }
 
-    func isSameDate(
+    public func isSameDate(
         as otherDate: GSDate,
         comparing components: [Calendar.Component] = [.day, .month, .year, .hour, .minute, .second]
     ) -> Bool {
@@ -101,7 +101,7 @@ extension GSDate {
 // MARK: - Modifiers
 
 extension GSDate {
-    func add(_ value: Int, to component: Calendar.Component) -> GSDate {
+    public func add(_ value: Int, to component: Calendar.Component) -> GSDate {
         guard let modifiedDate = calendar.date(byAdding: component, value: value, to: rawValue) else { return self }
         return GSDate(modifiedDate)
     }
@@ -110,7 +110,7 @@ extension GSDate {
 // MARK: - Formatting
 
 extension GSDate {
-    func formatted(date: Date.FormatStyle.DateStyle, time: Date.FormatStyle.TimeStyle) -> String {
+    public func formatted(date: Date.FormatStyle.DateStyle, time: Date.FormatStyle.TimeStyle) -> String {
         rawValue.formatted(date: date, time: time)
     }
 }

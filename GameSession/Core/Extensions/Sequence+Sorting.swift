@@ -9,7 +9,7 @@
 import Foundation
 
 extension Sequence {
-    func sorted<T: Comparable>(
+    public func sorted<T: Comparable>(
         by keyPath: KeyPath<Element, T>,
         using comparator: (T, T) -> Bool = (<)
     ) -> [Element] {

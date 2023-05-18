@@ -6,7 +6,11 @@
 //
 //
 
-import Foundation
+#if os(iOS)
+import Core_iOS
+#elseif os(watchOS)
+import Core_watchOS
+#endif
 import CoreData
 
 @objc(CDGameSession)

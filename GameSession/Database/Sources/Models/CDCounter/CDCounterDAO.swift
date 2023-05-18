@@ -8,16 +8,16 @@
 
 import CoreData
 
-final class CDCounterDAO {
+public final class CDCounterDAO {
 
     private let context: NSManagedObjectContext
 
-    init(_ context: NSManagedObjectContext) {
+    public init(_ context: NSManagedObjectContext) {
         self.context = context
     }
 
     @discardableResult
-    func create(title: String) -> Counter? {
+    public func create(title: String) -> Counter? {
         let cdCounter = CDCounter(context: context)
         cdCounter.title = title
         cdCounter.sessions = []
@@ -32,7 +32,7 @@ final class CDCounterDAO {
     }
 
     @discardableResult
-    func update(id: UUID, adding session: GameSession) -> Counter? {
+    public func update(id: UUID, adding session: GameSession) -> Counter? {
         let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest(id: id)
 
         do {
@@ -50,7 +50,7 @@ final class CDCounterDAO {
         }
     }
 
-    func get(id: UUID) -> Counter? {
+    public func get(id: UUID) -> Counter? {
         let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest(id: id)
 
         do {
@@ -62,7 +62,7 @@ final class CDCounterDAO {
         }
     }
 
-    func getAll() -> [Counter]? {
+    public func getAll() -> [Counter]? {
         let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest()
 
         do {
@@ -74,7 +74,7 @@ final class CDCounterDAO {
         }
     }
 
-    func delete(id: UUID) {
+    public func delete(id: UUID) {
         let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest(id: id)
 
         do {
@@ -90,7 +90,7 @@ final class CDCounterDAO {
     }
 
     @discardableResult
-    func clearSessions(id: UUID) -> Counter? {
+    public func clearSessions(id: UUID) -> Counter? {
         let fetchRequest: NSFetchRequest<CDCounter> = CDCounter.fetchRequest(id: id)
 
         do {

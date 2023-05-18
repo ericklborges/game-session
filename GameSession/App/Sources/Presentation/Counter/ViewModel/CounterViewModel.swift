@@ -7,7 +7,7 @@
 //
 
 import Combine
-import Foundation
+import Database_iOS
 
 final class CounterViewModel: ObservableObject {
 

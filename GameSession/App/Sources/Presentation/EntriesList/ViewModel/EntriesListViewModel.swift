@@ -7,6 +7,7 @@
 //
 
 import Combine
+import Database_iOS
 import Foundation
 
 class EntriesListViewModel: ObservableObject {

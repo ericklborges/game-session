@@ -6,7 +6,7 @@
 //  Copyright © 2023 bcl. All rights reserved.
 //
 
-import Foundation
+import Database_iOS
 
 class NewCounterViewModel {
     // MARK: - DAO

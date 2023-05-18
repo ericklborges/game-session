@@ -22,8 +22,35 @@ let project = Project.main(
             name: projectName,
             platform: .iOS,
             infoPlist: .iOSApp(adding: iOSAppInfoPlistValues),
-            entitlements: .appEntitlements,
-            dependencies: [.target(name: "WatchApp")],
+            dependencies: [
+                .target(name: "Database-iOS"),
+                .target(name: "WatchApp")
+            ]
+        ),
+        .iOSFramework(
+            name: "Core-iOS",
+            infoPlist: .default,
+            sources: ["Core/**"]
+        ),
+        .watchOSFramework(
+            name: "Core-watchOS",
+            infoPlist: .default,
+            sources: ["Core/**"]
+        ),
+        .iOSFramework(
+            name: "Database-iOS",
+            infoPlist: .default,
+            sources: ["Database/Sources/**"],
+            entitlements: .Database,
+            dependencies: [.target(name: "Core-iOS")],
+            coreDataModels: [.gameSession]
+        ),
+        .watchOSFramework(
+            name: "Database-watchOS",
+            infoPlist: .default,
+            sources: ["Database/Sources/**"],
+            entitlements: .Database,
+            dependencies: [.target(name: "Core-watchOS")],
             coreDataModels: [.gameSession]
         ),
         .watchApp(
@@ -33,7 +60,8 @@ let project = Project.main(
         ),
         .watchExtension(
             name: "WatchAppExtension",
-            infoPlist: .watchAppExtension()
+            infoPlist: .watchAppExtension(),
+            dependencies: [.target(name: "Database-watchOS")]
         )
     ]
 )

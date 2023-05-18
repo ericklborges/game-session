@@ -6,15 +6,19 @@
 //  Copyright © 2023 bcl. All rights reserved.
 //
 
-import Foundation
+#if os(iOS)
+import Core_iOS
+#elseif os(watchOS)
+import Core_watchOS
+#endif
 import CoreData
 
-struct Entry: Identifiable {
-    let id: UUID
-    let timestamp: GSDate
-    let value: Int32
+public struct Entry: Identifiable {
+    public let id: UUID
+    public let timestamp: GSDate
+    public let value: Int32
 
-    init(
+    public init(
         id: UUID = UUID(),
         timestamp: GSDate = .today,
         value: Int32

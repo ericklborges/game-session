@@ -9,7 +9,7 @@
 import SwiftUI
 
 extension Binding {
-    init<Object: AnyObject>(
+    public init<Object: AnyObject>(
         to path: ReferenceWritableKeyPath<Object, Value>,
         in object: Object
     ) {
