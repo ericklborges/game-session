@@ -12,6 +12,10 @@ private let iOSAppInfoPlistValues: [String: InfoPlist.Value] = [
     ]
 ]
 
+private let watchAppInfoPlistValues: [String: InfoPlist.Value] = [
+    "UIBackgroundModes": ["remote-notification"]
+]
+
 // MARK: - Project
 
 let project = Project.main(
@@ -22,6 +26,7 @@ let project = Project.main(
             name: projectName,
             platform: .iOS,
             infoPlist: .iOSApp(adding: iOSAppInfoPlistValues),
+            entitlements: .app,
             dependencies: [
                 .target(name: "Database-iOS"),
                 .target(name: "WatchApp")
@@ -41,7 +46,6 @@ let project = Project.main(
             name: "Database-iOS",
             infoPlist: .default,
             sources: ["Database/Sources/**"],
-            entitlements: .Database,
             dependencies: [.target(name: "Core-iOS")],
             coreDataModels: [.gameSession]
         ),
@@ -49,7 +53,6 @@ let project = Project.main(
             name: "Database-watchOS",
             infoPlist: .default,
             sources: ["Database/Sources/**"],
-            entitlements: .Database,
             dependencies: [.target(name: "Core-watchOS")],
             coreDataModels: [.gameSession]
         ),
@@ -60,7 +63,8 @@ let project = Project.main(
         ),
         .watchExtension(
             name: "WatchAppExtension",
-            infoPlist: .watchAppExtension(),
+            infoPlist: .watchAppExtension(adding: watchAppInfoPlistValues),
+            entitlements: .watchApp,
             dependencies: [.target(name: "Database-watchOS")]
         )
     ]

@@ -28,7 +28,6 @@ extension Target {
     public static func watchApp(
         name: String,
         infoPlist: InfoPlist,
-        entitlements: Path? = nil,
         dependencies: [TargetDependency] = [],
         coreDataModels: [CoreDataModel] = []
     ) -> Target {
@@ -40,7 +39,6 @@ extension Target {
             deploymentTarget: .watchOSGlobal,
             infoPlist: infoPlist,
             resources: "\(name)/**",
-            entitlements: entitlements,
             dependencies: dependencies,
             coreDataModels: coreDataModels
         )
@@ -49,6 +47,7 @@ extension Target {
     public static func watchExtension(
         name: String,
         infoPlist: InfoPlist,
+        entitlements: Path? = nil,
         dependencies: [TargetDependency] = []
     ) -> Target {
         .init(
@@ -59,6 +58,7 @@ extension Target {
             deploymentTarget: .watchOSGlobal,
             infoPlist: infoPlist,
             sources: "\(name)/Sources/**",
+            entitlements: entitlements,
             dependencies: dependencies
         )
     }
@@ -68,7 +68,6 @@ extension Target {
         infoPlist: InfoPlist,
         sources: SourceFilesList? = nil,
         resources: ResourceFileElements? = nil,
-        entitlements: Path? = nil,
         dependencies: [TargetDependency] = [],
         coreDataModels: [CoreDataModel] = []
     ) -> Target {
@@ -79,7 +78,6 @@ extension Target {
             infoPlist: infoPlist,
             sources: sources,
             resources: resources,
-            entitlements: entitlements,
             dependencies: dependencies,
             coreDataModels: coreDataModels
         )
@@ -90,7 +88,6 @@ extension Target {
         infoPlist: InfoPlist,
         sources: SourceFilesList? = nil,
         resources: ResourceFileElements? = nil,
-        entitlements: Path? = nil,
         dependencies: [TargetDependency] = [],
         coreDataModels: [CoreDataModel] = []
     ) -> Target {
@@ -101,7 +98,6 @@ extension Target {
             infoPlist: infoPlist,
             sources: sources,
             resources: resources,
-            entitlements: entitlements,
             dependencies: dependencies,
             coreDataModels: coreDataModels
         )
@@ -114,7 +110,6 @@ extension Target {
         infoPlist: InfoPlist,
         sources: SourceFilesList? = nil,
         resources: ResourceFileElements? = nil,
-        entitlements: Path? = nil,
         dependencies: [TargetDependency] = [],
         coreDataModels: [CoreDataModel] = []
     ) -> Target {
@@ -127,7 +122,6 @@ extension Target {
             infoPlist: infoPlist,
             sources: sources,
             resources: resources,
-            entitlements: entitlements,
             dependencies: dependencies,
             coreDataModels: coreDataModels
         )
