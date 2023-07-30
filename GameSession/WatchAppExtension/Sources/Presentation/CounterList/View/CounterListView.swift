@@ -18,10 +18,8 @@ struct CounterListView: View {
             List {
                 Section {
                     ForEach(viewModel.state.counters) { counter in
-                        NavigationLink {
+                        CounterListCell(counter) {
                             makeCounterView(for: counter)
-                        } label: {
-                            Text(counter.title)
                         }
                     }
                 } footer: {
