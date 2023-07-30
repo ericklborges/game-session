@@ -32,8 +32,8 @@ struct CounterListView: View {
                 
             }
             .navigationTitle("Counters")
+            .onAppear { viewModel.getAllCounters() }
         }
-        .onAppear { viewModel.getAllCounters() }
     }
     
     private func makeCounterView(for counter: Counter) -> CounterView {
