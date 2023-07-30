@@ -69,10 +69,17 @@ fileprivate struct CounterButtonStyle: ButtonStyle {
             Image(asset: backgroundImage)
                 .resizable()
 
-            Image(asset: arrowImage)
-                .resizable()
-                .scaledToFit()
-                .padding([.top, .bottom], 44)
+            VStack {
+                Spacer(minLength: 20)
+                
+                Image(asset: arrowImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxHeight: 80)
+                    .layoutPriority(1)
+                
+                Spacer(minLength: 24)
+            }
         }
         .frame(maxHeight: 200)
         .scaleEffect(x: 1, y: yScale, anchor: .bottom)
@@ -81,18 +88,26 @@ fileprivate struct CounterButtonStyle: ButtonStyle {
 
 struct CounterButton_Previews: PreviewProvider {
     static var previews: some View {
-        previewOnDevice("iPhone 14 Pro")
-        previewOnDevice("iPhone 13 mini")
-        previewOnDevice("iPhone 8 Plus")
-        previewOnDevice("iPhone SE (3rd generation)")
+        Group {
+            previewOnDevice("iPhone 14 Pro")
+            previewOnDevice("iPhone 13 mini")
+            previewOnDevice("iPhone 8 Plus")
+            previewOnDevice("iPhone SE (3rd generation)")
+        }
     }
 
     static func previewOnDevice(_ previewDevice: PreviewDevice? = nil) -> some View {
-        VStack(spacing: 32.0) {
+        VStack(spacing: 16.0) {
+            Rectangle().fill(.white).border(.blue)
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .aspectRatio(1, contentMode: .fit)
+                .layoutPriority(1000)
+            Spacer()
             CounterButton(function: .add, action: { print("action") })
             CounterButton(function: .subtract, action: { print("action") })
         }
         .padding()
         .previewDevice(previewDevice)
+        .previewDisplayName(previewDevice?.rawValue)
     }
 }
