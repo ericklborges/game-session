@@ -7,9 +7,15 @@
 //
 
 import SwiftUI
+import Database_watchOS
 
 @main
 struct GameSessionWatchApp: App {
+    
+    init() {
+        CoreDataStore.shared.loadStore()
+    }
+
     var body: some Scene {
         WindowGroup {
             CounterListView()
