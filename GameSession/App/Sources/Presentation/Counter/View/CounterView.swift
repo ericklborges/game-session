@@ -27,9 +27,8 @@ struct CounterView: View {
             CounterButton(function: .subtract) {
                 viewModel.subtract()
             }
-
         }
-        .padding()
+        .padding([.horizontal, .top])
         .background(Color(asset: GameSessionAsset.Colors.backgroundColor))
         .onAppear { viewModel.refreshCounter() }
         .navigationTitle(viewModel.navigationTitle)
