@@ -13,6 +13,11 @@ private let iOSAppInfoPlistValues: [String: InfoPlist.Value] = [
 ]
 
 private let watchAppInfoPlistValues: [String: InfoPlist.Value] = [
+    "CFBundleDisplayName": "GameSession"
+]
+
+
+private let watchAppExtensionInfoPlistValues: [String: InfoPlist.Value] = [
     "UIBackgroundModes": ["remote-notification"]
 ]
 
@@ -58,12 +63,12 @@ let project = Project.main(
         ),
         .watchApp(
             name: "WatchApp",
-            infoPlist: .watchApp(),
+            infoPlist: .watchApp(adding: watchAppInfoPlistValues),
             dependencies: [.target(name: "WatchAppExtension")]
         ),
         .watchExtension(
             name: "WatchAppExtension",
-            infoPlist: .watchAppExtension(adding: watchAppInfoPlistValues),
+            infoPlist: .watchAppExtension(adding: watchAppExtensionInfoPlistValues),
             entitlements: .watchApp,
             dependencies: [.target(name: "Database-watchOS")]
         )
