@@ -36,6 +36,7 @@ struct EntriesListView: View {
             }
         }
         .navigationTitle(viewModel.navTitle)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
